@@ -1,72 +1,36 @@
-import { useMemo, useRef, useState } from 'react'
-import { kamoshida as palace } from './data/kamoshida'
-import { MARKER_TYPE_IDS } from './data/markerTypes'
+import { useEffect, useRef, useState } from 'react'
+import { findPalace } from './data/palaces'
 import { gsap, useGSAP, reducedMotion } from './animations/gsap'
-import PalaceHeader from './components/PalaceHeader'
-import FilterPanel from './components/FilterPanel'
-import MapViewer from './components/MapViewer'
-import InfoPanel from './components/InfoPanel'
-import Legend from './components/Legend'
+import TakeYourHeart from './components/intro/TakeYourHeart'
+import PalaceSelect from './components/PalaceSelect'
+import PalaceExplorer from './components/PalaceExplorer'
 
-const countBy = (items, key) =>
-  items.reduce((acc, it) => ({ ...acc, [it[key]]: (acc[it[key]] ?? 0) + 1 }), {})
+// Routes: "#/" = palace selection, "#/palace/<id>" = explorer.
+const parseHash = () => {
+  const m = window.location.hash.match(/^#\/palace\/([\w-]+)/)
+  return m && findPalace(m[1]) ? { screen: 'palace', id: m[1] } : { screen: 'select' }
+}
+
+const goTo = (hash) => {
+  window.location.hash = hash
+  window.scrollTo(0, 0)
+}
 
 export default function App() {
   const rootRef = useRef(null)
-  const [floorId, setFloorId] = useState('1f')
-  const [active, setActive] = useState(() => new Set(MARKER_TYPE_IDS))
-  const [selectedId, setSelectedId] = useState(null)
-  const [focusRequest, setFocusRequest] = useState(null)
-  const [legendOpen, setLegendOpen] = useState(false)
+  const [route, setRoute] = useState(parseHash)
+  const [revealed, setRevealed] = useState(false)
+  const [introDone, setIntroDone] = useState(false)
 
-  const floor = palace.floors.find((f) => f.id === floorId)
-  const selected = palace.markers.find((m) => m.id === selectedId) ?? null
-  const typeCounts = useMemo(() => countBy(palace.markers, 'type'), [])
-  const visible = useMemo(() => palace.markers.filter((m) => active.has(m.type)), [active])
-  const floorMarkers = useMemo(() => visible.filter((m) => m.floor === floorId), [visible, floorId])
-  const floorCounts = useMemo(() => countBy(visible, 'floor'), [visible])
+  useEffect(() => {
+    const onHash = () => setRoute(parseHash())
+    window.addEventListener('hashchange', onHash)
+    return () => window.removeEventListener('hashchange', onHash)
+  }, [])
 
-  const toggleType = (id) =>
-    setActive((prev) => {
-      const next = new Set(prev)
-      if (next.has(id)) next.delete(id)
-      else next.add(id)
-      return next
-    })
-
-  const changeFloor = (id) => {
-    if (id === floorId) return
-    setFloorId(id)
-    setSelectedId(null)
-  }
-
-  const focusSelected = () => {
-    if (!selected) return
-    setFloorId(selected.floor)
-    setFocusRequest({ id: selected.id, at: Date.now() })
-  }
-
-  // Intro: a red/black slash sweeps the screen, the title slams in, the panels fly in.
-  useGSAP(
+  const { contextSafe } = useGSAP(
     () => {
-      if (reducedMotion()) {
-        gsap.set('.intro', { display: 'none' })
-        return
-      }
-      gsap
-        .timeline({ defaults: { ease: 'power4.out' } })
-        .fromTo('.intro__stripe', { xPercent: -120, autoAlpha: 1 }, { xPercent: 0, duration: 0.45, stagger: 0.07, ease: 'power3.in' })
-        .fromTo('.intro__word', { scale: 3, autoAlpha: 0, rotate: -12 }, { scale: 1, autoAlpha: 1, rotate: -6, duration: 0.35, ease: 'back.out(2)' })
-        .to('.intro__stripe', { xPercent: 120, duration: 0.45, stagger: 0.06, ease: 'power3.in' }, '+=0.35')
-        .to('.intro__word', { scale: 0.4, autoAlpha: 0, duration: 0.25 }, '<')
-        .set('.intro', { display: 'none' })
-        .from('[data-anim="title"]', { x: -500, skewX: -30, autoAlpha: 0, duration: 0.6, ease: 'back.out(1.6)' }, '-=0.2')
-        .from('[data-anim="desc"]', { y: 30, autoAlpha: 0, duration: 0.4 }, '-=0.3')
-        .from('[data-anim="ruler"]', { x: 300, rotate: 6, autoAlpha: 0, duration: 0.55, ease: 'back.out(1.4)' }, '<')
-        .from('[data-anim="side-left"]', { x: -200, skewY: 4, autoAlpha: 0, duration: 0.5 }, '-=0.35')
-        .from('[data-anim="map"]', { y: 80, scale: 0.94, autoAlpha: 0, duration: 0.55 }, '<0.08')
-        .from('[data-anim="side-right"]', { x: 200, skewY: -4, autoAlpha: 0, duration: 0.5 }, '<0.08')
-
+      if (reducedMotion()) return
       // Idle drift of the background shards.
       gsap.to('.bg-shard', {
         y: 'random(-18, 18)',
@@ -81,6 +45,21 @@ export default function App() {
     { scope: rootRef },
   )
 
+  // Screen change: diagonal red/black/white stripes cover the page, swap, uncover.
+  const navigate = contextSafe((hash) => {
+    if (reducedMotion()) {
+      goTo(hash)
+      return
+    }
+    gsap
+      .timeline()
+      .set('.wipe', { autoAlpha: 1 })
+      .fromTo('.wipe__stripe', { xPercent: -130 }, { xPercent: 0, duration: 0.4, stagger: 0.06, ease: 'power3.in' })
+      .add(() => goTo(hash))
+      .to('.wipe__stripe', { xPercent: 130, duration: 0.45, stagger: 0.06, ease: 'power3.out' }, '+=0.15')
+      .set('.wipe', { autoAlpha: 0 })
+  })
+
   return (
     <div className="app" ref={rootRef}>
       <div className="bg" aria-hidden="true">
@@ -90,48 +69,23 @@ export default function App() {
         <span className="bg-halftone" />
       </div>
 
-      <div className="intro" aria-hidden="true">
-        <span className="intro__stripe intro__stripe--red" />
-        <span className="intro__stripe intro__stripe--black" />
-        <span className="intro__stripe intro__stripe--white" />
-        <span className="intro__word">Take Your Heart</span>
-      </div>
-
-      <PalaceHeader palace={palace} />
-
-      <main className="explorer">
-        <FilterPanel
-          active={active}
-          counts={typeCounts}
-          onToggle={toggleType}
-          onSetAll={(on) => setActive(new Set(on ? MARKER_TYPE_IDS : []))}
-        />
-        <MapViewer
-          floors={palace.floors}
-          floor={floor}
-          markers={floorMarkers}
-          floorCounts={floorCounts}
-          selectedId={selectedId}
-          focusRequest={focusRequest}
-          onSelect={setSelectedId}
-          onFloorChange={changeFloor}
-          onOpenLegend={() => setLegendOpen(true)}
-        />
-        <InfoPanel
-          palace={palace}
-          marker={selected}
-          floorName={palace.floors.find((f) => f.id === selected?.floor)?.name}
-          counts={typeCounts}
-          onClose={() => setSelectedId(null)}
-          onFocus={focusSelected}
-        />
-      </main>
+      {route.screen === 'palace' ? (
+        <PalaceExplorer key={route.id} animate={revealed} palace={findPalace(route.id)} onBack={() => navigate('#/')} />
+      ) : (
+        <PalaceSelect animate={revealed} onOpen={(id) => navigate(`#/palace/${id}`)} />
+      )}
 
       <footer className="footer">
         Fan project · Persona 5 Royal © ATLUS / SEGA · Map layouts are simplified schematics
       </footer>
 
-      {legendOpen && <Legend onClose={() => setLegendOpen(false)} />}
+      <div className="wipe" aria-hidden="true">
+        <span className="wipe__stripe wipe__stripe--red" />
+        <span className="wipe__stripe wipe__stripe--black" />
+        <span className="wipe__stripe wipe__stripe--white" />
+      </div>
+
+      {!introDone && <TakeYourHeart onReveal={() => setRevealed(true)} onDone={() => setIntroDone(true)} />}
     </div>
   )
 }

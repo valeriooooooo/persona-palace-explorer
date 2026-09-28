@@ -7,6 +7,7 @@ import '@fontsource/oswald/600.css'
 import '@fontsource/oswald/700.css'
 import './styles/tokens.css'
 import './styles/app.css'
+import './styles/screens.css'
 import App from './App.jsx'
 
 createRoot(document.getElementById('root')).render(

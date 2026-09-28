@@ -53,51 +53,6 @@
   mask-image: linear-gradient(135deg, #000 0, transparent 45%, transparent 70%, #000 100%);
 }
 
-/* ---------- Intro ---------- */
-.intro {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-  overflow: hidden;
-  display: grid;
-  place-items: center;
-}
-.intro__stripe {
-  position: absolute;
-  left: -20%;
-  width: 140%;
-  height: 40%;
-  visibility: hidden;
-}
-.intro__stripe--red {
-  top: -5%;
-  background: var(--p5-red);
-  clip-path: polygon(0 0, 100% 0, 100% 70%, 0 100%);
-}
-.intro__stripe--black {
-  top: 28%;
-  height: 50%;
-  background: var(--p5-black);
-  clip-path: polygon(0 12%, 100% 0, 100% 88%, 0 100%);
-}
-.intro__stripe--white {
-  bottom: -8%;
-  background: var(--p5-white);
-  clip-path: polygon(0 30%, 100% 0, 100% 100%, 0 100%);
-}
-.intro__word {
-  position: relative;
-  font-family: var(--font-display);
-  font-size: clamp(2.6rem, 9vw, 7rem);
-  text-transform: uppercase;
-  color: var(--p5-white);
-  background: var(--p5-red);
-  padding: 0.05em 0.35em;
-  box-shadow: 10px 10px 0 var(--p5-black);
-  opacity: 0;
-}
-
 /* ---------- Shared bits ---------- */
 .panel {
   position: relative;
@@ -362,11 +317,49 @@
   margin: 0 auto;
 }
 
-/* ---------- Map ---------- */
+/* ---------- Map (in-game minimap look) ---------- */
 .map-viewer {
-  height: min(72vh, 660px);
-  min-height: 460px;
+  height: min(74vh, 700px);
+  min-height: 480px;
   overflow: hidden;
+  background: #050505;
+}
+/* The palace floor seen around the map lens: a checkered hall with a red carpet. */
+.map-floor-bg {
+  position: absolute;
+  inset: -40% -30% -10%;
+  background:
+    linear-gradient(90deg, transparent 44%, rgba(160, 0, 12, 0.85) 44% 56%, transparent 56%),
+    conic-gradient(#1b3a3a 25%, #070707 0 50%, #1b3a3a 0 75%, #070707 0) 0 0 / 90px 90px;
+  transform: perspective(700px) rotateX(58deg) rotateZ(-18deg);
+  transform-origin: 50% 70%;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.map-floor-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 50% 60%, transparent 0, rgba(0, 0, 0, 0.85) 60%);
+}
+.map-stage {
+  position: absolute;
+  inset: 0 0 0 90px;
+  container-type: size;
+  display: grid;
+  place-items: center;
+}
+.map-lens {
+  position: relative;
+  width: min(94cqh, 94cqw);
+  height: min(94cqh, 94cqw);
+  border-radius: 50%;
+  overflow: hidden;
+  background: radial-gradient(circle, rgba(8, 8, 8, 0.93) 60%, rgba(0, 0, 0, 0.97) 100%);
+  box-shadow:
+    0 0 0 3px rgba(244, 244, 244, 0.85),
+    0 0 0 9px rgba(0, 0, 0, 0.6),
+    0 0 40px 10px rgba(0, 0, 0, 0.8);
 }
 .map-svg {
   display: block;
@@ -379,38 +372,58 @@
 .map-svg:active {
   cursor: grabbing;
 }
-.map-floor-name {
+
+.map-title {
   position: absolute;
   top: 14px;
-  left: 18px;
-  z-index: 2;
-  margin: 0;
-  padding: 2px 14px;
-  background: var(--p5-black);
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: 1.5rem;
-  text-transform: uppercase;
+  left: 14px;
+  z-index: 3;
+  display: grid;
+  justify-items: start;
   pointer-events: none;
+}
+.map-title__palace {
+  padding: 3px 18px 3px 10px;
+  background: var(--p5-black);
+  border: 2px solid var(--p5-white);
+  font-weight: 700;
+  font-size: 1.05rem;
+  clip-path: polygon(0 0, 100% 0, 94% 100%, 0 100%);
+}
+.map-title__floor {
+  margin: -2px 0 0 26px;
+  padding: 2px 18px;
+  background: #3a3a3a;
+  color: var(--p5-white);
+  font-size: 0.9rem;
+  clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%);
 }
 
 .map-outline rect {
   fill: var(--p5-white);
   stroke: var(--p5-white);
-  stroke-width: 10;
+  stroke-width: 11;
   stroke-linejoin: round;
 }
 .map-shape {
-  fill: #0e0e0e;
+  fill: #101010;
 }
 .map-shape--hall {
-  fill: #1d1d1d;
+  fill: #1a1a1a;
+}
+.map-shape--water {
+  fill: #0f3550;
+}
+.map-trim rect {
+  fill: none;
+  stroke: rgba(244, 244, 244, 0.28);
+  stroke-width: 2;
 }
 .map-door {
-  fill: var(--p5-red);
+  fill: #f5d90a;
 }
 .map-label {
-  fill: #7d7d7d;
+  fill: #8a8a8a;
   font-family: var(--font-body);
   font-size: 13px;
   font-weight: 600;
@@ -480,7 +493,7 @@
 /* Floor tabs */
 .floor-tabs {
   position: absolute;
-  top: 64px;
+  top: 92px;
   left: 0;
   z-index: 2;
   display: flex;
@@ -694,9 +707,9 @@
   text-transform: uppercase;
 }
 .legend__lock {
-  width: 20px;
-  height: 16px;
-  margin: 0 4px;
+  width: 16px;
+  height: 13px;
+  margin: 0 6px;
   background: #f5d90a;
   border-radius: 2px;
 }
@@ -704,7 +717,7 @@
   width: 26px;
   height: 8px;
   margin: 0 1px;
-  background: var(--p5-red);
+  background: #f5d90a;
 }
 .legend__stairs {
   width: 28px;
@@ -788,12 +801,14 @@
     display: none;
   }
   .map-viewer {
-    height: 480px;
+    height: 520px;
     min-height: 0;
-    padding-top: 96px;
+  }
+  .map-stage {
+    inset: 116px 0 52px;
   }
   .floor-tabs {
-    top: 54px;
+    top: 76px;
     left: 8px;
     right: 8px;
     flex-direction: row;
@@ -828,9 +843,6 @@
     right: 12px;
     bottom: 10px;
     padding: 6px 16px;
-  }
-  .map-floor-name {
-    font-size: 1.1rem;
   }
   .info-panel {
     transform: none;

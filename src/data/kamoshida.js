@@ -22,6 +22,7 @@ export const kamoshida = {
   boss: 'Shadow Kamoshida',
   portrait: 'kamoshida/ruler.jpg',
   banner: 'kamoshida/castle.jpg',
+  startFloor: '1f',
   shadows: [
     { name: 'Pixie', arcana: 'Lovers' },
     { name: "Jack-o'-Lantern", arcana: 'Magician' },

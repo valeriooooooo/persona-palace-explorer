@@ -1,0 +1,313 @@
+/* ---------- Ransom-note lettering ---------- */
+.ransom {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.1em 0.4em;
+  line-height: 1;
+}
+.ransom__word {
+  display: inline-flex;
+  gap: 0.04em;
+}
+.ransom__letter {
+  display: inline-block;
+  padding: 0.04em 0.1em;
+  transform: rotate(var(--tilt, 0deg));
+  font-family: var(--font-display);
+  text-transform: none;
+}
+.ransom__letter--black {
+  background: var(--p5-black);
+  color: var(--p5-white);
+}
+.ransom__letter--white {
+  background: var(--p5-white);
+  color: var(--p5-black);
+  box-shadow: 0 0 0 2px var(--p5-black);
+}
+.ransom__letter--plain {
+  color: var(--p5-black);
+  font-size: 1.12em;
+  padding: 0;
+}
+.ransom__letter--red {
+  background: var(--p5-red);
+  color: var(--p5-black);
+  font-family: var(--font-body);
+  font-weight: 700;
+}
+.ransom__letter--serif {
+  background: var(--p5-white);
+  color: var(--p5-black);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-weight: 700;
+  font-style: italic;
+  border: 2px solid var(--p5-black);
+}
+
+/* ---------- Intro: Take Your Heart ---------- */
+.tyh {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  cursor: pointer;
+  visibility: hidden;
+}
+.tyh__slice {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  height: 60%;
+  background: var(--p5-red);
+}
+.tyh__slice--top {
+  top: -5%;
+  clip-path: polygon(0 0, 100% 0, 100% 72%, 0 100%);
+  background:
+    radial-gradient(rgba(0, 0, 0, 0.3) 1.5px, transparent 1.8px) 0 0 / 12px 12px,
+    var(--p5-red);
+}
+.tyh__slice--bottom {
+  bottom: -5%;
+  clip-path: polygon(0 28%, 100% 0, 100% 100%, 0 100%);
+  background: var(--p5-black);
+}
+.tyh__rays {
+  position: absolute;
+  width: 170vmax;
+  height: 170vmax;
+  background: repeating-conic-gradient(rgba(0, 0, 0, 0.9) 0 7deg, transparent 7deg 18deg);
+  mask-image: radial-gradient(circle, #000 0, #000 30%, transparent 62%);
+  animation: tyh-spin 18s linear infinite;
+}
+@keyframes tyh-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+.tyh__splat {
+  position: absolute;
+  width: min(78vw, 640px);
+  aspect-ratio: 1.15;
+  background: var(--p5-white);
+  clip-path: polygon(
+    50% 0%, 60% 14%, 78% 4%, 76% 22%, 98% 20%, 86% 38%, 100% 52%, 84% 60%, 94% 80%,
+    72% 76%, 66% 98%, 52% 82%, 36% 100%, 32% 78%, 8% 88%, 16% 66%, 0% 54%, 14% 42%,
+    2% 22%, 24% 24%, 22% 4%, 40% 16%
+  );
+  filter: drop-shadow(12px 12px 0 var(--p5-black));
+  rotate: -6deg;
+}
+.tyh__logo {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+}
+.tyh__hat {
+  width: min(52vw, 300px);
+  height: auto;
+  filter: drop-shadow(8px 10px 0 rgba(0, 0, 0, 0.35));
+}
+.tyh__text {
+  font-size: clamp(2rem, 7vw, 4.4rem);
+  rotate: -4deg;
+  padding: 0.18em 0.45em;
+  background: var(--p5-white);
+  box-shadow: 10px 10px 0 var(--p5-black);
+  clip-path: polygon(1% 4%, 30% 0, 62% 5%, 100% 0, 98% 60%, 100% 100%, 55% 95%, 22% 100%, 0 96%, 2% 50%);
+}
+.tyh__flash {
+  position: absolute;
+  inset: 0;
+  background: var(--p5-white);
+  opacity: 0;
+  pointer-events: none;
+}
+.tyh__skip {
+  position: absolute;
+  right: 18px;
+  bottom: 14px;
+  color: var(--p5-white);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  opacity: 0.7;
+}
+
+/* ---------- Screen wipe ---------- */
+.wipe {
+  position: fixed;
+  inset: 0;
+  z-index: 150;
+  pointer-events: none;
+  visibility: hidden;
+  overflow: hidden;
+}
+.wipe__stripe {
+  position: absolute;
+  left: -25%;
+  width: 150%;
+  height: 45%;
+  transform: skewY(-8deg);
+}
+.wipe__stripe--red {
+  top: -8%;
+  background: var(--p5-red);
+}
+.wipe__stripe--black {
+  top: 30%;
+  background: var(--p5-black);
+}
+.wipe__stripe--white {
+  top: 68%;
+  background: var(--p5-white);
+}
+
+/* ---------- Palace select ---------- */
+.select {
+  min-height: calc(100vh - 110px);
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 18px;
+  padding: 20px 0 40px;
+}
+.select__kicker {
+  margin: 0;
+  padding: 4px 22px;
+  background: var(--p5-black);
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  transform: skewX(-14deg) rotate(-3deg);
+}
+.select__title {
+  margin: 0 0 22px;
+  font-size: clamp(2.6rem, 8vw, 5.4rem);
+  font-weight: 400;
+  rotate: -3deg;
+}
+.select__cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+}
+
+.palace-card {
+  position: relative;
+  width: min(440px, 100%);
+  padding: 0;
+  border: 0;
+  background: none;
+  text-align: left;
+  transform: rotate(-3deg);
+}
+.palace-card__shadow {
+  position: absolute;
+  inset: 0;
+  background: var(--p5-black);
+  transform: translate(10px, 10px);
+  clip-path: polygon(0 3%, 100% 0, 97% 100%, 2% 97%);
+}
+.palace-card__inner {
+  position: relative;
+  display: grid;
+  background: var(--p5-white);
+  color: var(--p5-black);
+  padding: 14px 14px 18px;
+  clip-path: polygon(0 3%, 100% 0, 97% 100%, 2% 97%);
+}
+.palace-card__num {
+  position: absolute;
+  top: 2px;
+  right: 18px;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: 4.2rem;
+  line-height: 1;
+  color: var(--p5-red);
+  -webkit-text-stroke: 3px var(--p5-black);
+  paint-order: stroke fill;
+}
+.palace-card__image {
+  height: 200px;
+  border: 3px solid var(--p5-black);
+  clip-path: polygon(0 0, 100% 6%, 100% 100%, 0 94%);
+}
+.palace-card__body {
+  display: grid;
+  gap: 4px;
+  padding: 12px 8px 0;
+}
+.palace-card__sub {
+  justify-self: start;
+  padding: 1px 10px;
+  background: var(--p5-black);
+  color: var(--p5-red);
+  font-family: var(--font-display);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transform: skewX(-10deg);
+}
+.palace-card__name {
+  font-family: var(--font-display);
+  font-size: 2.4rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+.palace-card__meta {
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  color: #444;
+}
+.palace-card__meta strong {
+  color: var(--p5-black);
+}
+.palace-card__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.palace-card__stats > span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.palace-card__go {
+  justify-self: end;
+  margin: 10px 10px 0 0;
+  padding: 6px 22px;
+  background: var(--p5-red);
+  color: var(--p5-white);
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  text-transform: uppercase;
+  transform: skewX(-12deg);
+  box-shadow: 4px 4px 0 var(--p5-black);
+}
+
+/* ---------- Explorer page ---------- */
+.back-btn {
+  margin: 0 0 14px;
+  font-size: 0.95rem;
+  padding: 5px 18px;
+}
+
+@media (max-width: 760px) {
+  .palace-card__name {
+    font-size: 1.9rem;
+  }
+  .palace-card__image {
+    height: 150px;
+  }
+}

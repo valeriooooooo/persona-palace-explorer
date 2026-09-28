@@ -3,31 +3,30 @@ import { gsap, useGSAP, reducedMotion } from '../animations/gsap'
 import FloorTabs from './FloorTabs'
 import MapMarker from './MapMarker'
 
+// Floor plans live in a 1000x640 space. The view is a centre point plus the
+// number of map units across the lens, so the whole plan fits in the circle.
 const W = 1000
 const H = 640
-const HOME = { x: 0, y: 0, w: W, h: H }
+const HOME = { cx: W / 2, cy: H / 2, w: 1100 }
 const MIN_W = 250
-const MAX_W = 1400
+const MAX_W = 1600
 
-const clampView = ({ x, y, w }) => {
-  const cw = Math.min(MAX_W, Math.max(MIN_W, w))
-  const ch = (cw * H) / W
-  return {
-    w: cw,
-    h: ch,
-    x: Math.min(W - cw * 0.25, Math.max(-cw * 0.75, x)),
-    y: Math.min(H - ch * 0.25, Math.max(-ch * 0.75, y)),
-  }
+const clampView = ({ cx, cy, w }) => ({
+  w: Math.min(MAX_W, Math.max(MIN_W, w)),
+  cx: Math.min(W, Math.max(0, cx)),
+  cy: Math.min(H, Math.max(0, cy)),
+})
+
+// Zoom `v` by `factor`, keeping map point (px, py) fixed on screen.
+const zoomAt = (v, factor, px = v.cx, py = v.cy) => {
+  const w = Math.min(MAX_W, Math.max(MIN_W, v.w * factor))
+  const f = w / v.w
+  return clampView({ w, cx: px - (px - v.cx) * f, cy: py - (py - v.cy) * f })
 }
 
-// Zoom view `v` by `factor`, keeping the point (cx, cy) fixed on screen.
-const zoomAt = (v, factor, cx = v.x + v.w / 2, cy = v.y + v.h / 2) => {
-  const w = v.w * factor
-  return clampView({
-    w,
-    x: cx - (cx - v.x) * (w / v.w),
-    y: cy - (cy - v.y) * (w / v.w),
-  })
+const viewBoxOf = (v, box) => {
+  const h = (v.w * box.h) / box.w
+  return { x: v.cx - v.w / 2, y: v.cy - h / 2, w: v.w, h }
 }
 
 const ARROW = {
@@ -38,6 +37,7 @@ const ARROW = {
 }
 
 export default function MapViewer({
+  palaceName,
   floors,
   floor,
   markers,
@@ -51,16 +51,20 @@ export default function MapViewer({
   const rootRef = useRef(null)
   const svgRef = useRef(null)
   const [view, setView] = useState(HOME)
-  const viewRef = useRef(view)
+  const [box, setBox] = useState({ w: 600, h: 600 })
   const [hoverId, setHoverId] = useState(null)
+  const viewRef = useRef(view)
+  const boxRef = useRef(box)
   const drag = useRef(null)
 
   useLayoutEffect(() => {
     viewRef.current = view
+    boxRef.current = box
   })
-  const [box, setBox] = useState({ w: 800, h: 512 })
-  // SVG units per screen pixel: markers use it to stay the same size on screen.
-  const k = Math.max(view.w / box.w, view.h / box.h) * 0.85
+
+  const vb = viewBoxOf(view, box)
+  // SVG units per screen pixel: markers use it to keep the same size on screen.
+  const k = (vb.w / box.w) * 0.75
   const hovered = markers.find((m) => m.id === hoverId)
 
   const tweenView = (target, duration = 0.6) => {
@@ -90,27 +94,24 @@ export default function MapViewer({
     const onWheel = (e) => {
       e.preventDefault()
       const rect = svg.getBoundingClientRect()
-      const v = viewRef.current
-      const cx = v.x + ((e.clientX - rect.left) / rect.width) * v.w
-      const cy = v.y + ((e.clientY - rect.top) / rect.height) * v.h
-      setView(zoomAt(viewRef.current, e.deltaY > 0 ? 1.12 : 1 / 1.12, cx, cy))
+      const b = viewBoxOf(viewRef.current, boxRef.current)
+      const px = b.x + ((e.clientX - rect.left) / rect.width) * b.w
+      const py = b.y + ((e.clientY - rect.top) / rect.height) * b.h
+      setView(zoomAt(viewRef.current, e.deltaY > 0 ? 1.12 : 1 / 1.12, px, py))
     }
     svg.addEventListener('wheel', onWheel, { passive: false })
     return () => svg.removeEventListener('wheel', onWheel)
   }, [])
 
-  // "View on map": center and zoom in on a marker (switching floors is done by the parent).
+  // "View on map": centre and zoom in on a marker.
   useEffect(() => {
     if (!focusRequest) return
     const m = markers.find((mk) => mk.id === focusRequest.id)
-    if (!m) return
-    const w = 480
-    const h = (w * H) / W
-    tweenView({ x: m.x - w / 2, y: m.y - h / 2, w }, 0.8)
+    if (m) tweenView({ cx: m.x, cy: m.y, w: 520 }, 0.8)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focusRequest])
 
-  // Floor change: red slash wipe, the floor plan skews in and the markers pop in.
+  // Floor change: red slash wipe, the floor plan spins in and the markers pop in.
   useGSAP(
     () => {
       if (reducedMotion()) return
@@ -124,12 +125,12 @@ export default function MapViewer({
         .set('.map-slash', { autoAlpha: 0 })
         .fromTo(
           '.map-layer',
-          { autoAlpha: 0, x: 60, skewX: -10 },
-          { autoAlpha: 1, x: 0, skewX: 0, duration: 0.45, ease: 'power3.out' },
+          { autoAlpha: 0, scale: 0.9, rotate: -4, transformOrigin: '50% 50%' },
+          { autoAlpha: 1, scale: 1, rotate: 0, duration: 0.5, ease: 'back.out(1.6)' },
           0.18,
         )
         .fromTo(
-          '.map-floor-name',
+          '.map-title__floor',
           { autoAlpha: 0, x: -40 },
           { autoAlpha: 1, x: 0, duration: 0.35, ease: 'back.out(2)' },
           0.25,
@@ -138,7 +139,7 @@ export default function MapViewer({
           '.map-marker__inner',
           { scale: 0, transformOrigin: '50% 50%' },
           { scale: 1, duration: 0.45, ease: 'back.out(3)', stagger: 0.035 },
-          0.35,
+          0.4,
         )
     },
     { scope: rootRef, dependencies: [floor.id] },
@@ -169,8 +170,8 @@ export default function MapViewer({
       if (!selectedId || reducedMotion()) return
       gsap.fromTo(
         '.map-marker__pulse',
-        { attr: { r: 18 }, opacity: 1 },
-        { attr: { r: 34 }, opacity: 0, duration: 1.1, ease: 'power2.out', repeat: -1 },
+        { attr: { r: 20 }, opacity: 1 },
+        { attr: { r: 40 }, opacity: 0, duration: 1.1, ease: 'power2.out', repeat: -1 },
       )
     },
     { scope: rootRef, dependencies: [selectedId, floor.id] },
@@ -188,14 +189,15 @@ export default function MapViewer({
     const dy = e.clientY - d.sy
     if (!d.moved && Math.hypot(dx, dy) < 4) return
     d.moved = true
-    const rect = svgRef.current.getBoundingClientRect()
-    const scale = Math.max(d.view.w / rect.width, d.view.h / rect.height)
-    setView(clampView({ ...d.view, x: d.view.x - dx * scale, y: d.view.y - dy * scale }))
+    const scale = d.view.w / svgRef.current.getBoundingClientRect().width
+    setView(clampView({ ...d.view, cx: d.view.cx - dx * scale, cy: d.view.cy - dy * scale }))
   }
   const onPointerUp = () => {
     if (drag.current && !drag.current.moved) onSelect(null)
     drag.current = null
   }
+
+  const zoomButton = (factor) => tweenView(zoomAt(viewRef.current, factor), 0.35)
 
   const toggleFullscreen = () => {
     if (document.fullscreenElement) document.exitFullscreen()
@@ -210,124 +212,125 @@ export default function MapViewer({
   const shapes = floor.shapes
   return (
     <section className="panel map-viewer" ref={rootRef} data-anim="map" aria-label="Palace map">
-      <h2 className="map-floor-name">{floor.name}</h2>
+      <div className="map-floor-bg" aria-hidden="true" />
+
+      <div className="map-title">
+        <span className="map-title__palace">{palaceName}</span>
+        <span className="map-title__floor">{floor.name}</span>
+      </div>
 
       <FloorTabs floors={floors} current={floor.id} counts={floorCounts} onChange={goFloor} />
 
-      <svg
-        ref={svgRef}
-        className="map-svg"
-        viewBox={`${view.x} ${view.y} ${view.w} ${view.h}`}
-        onPointerDown={onPointerDown}
-        onPointerMove={onPointerMove}
-        onPointerUp={onPointerUp}
-        onPointerCancel={() => (drag.current = null)}
-      >
-        <defs>
-          <pattern id="checker" width="80" height="80" patternUnits="userSpaceOnUse">
-            <rect width="80" height="80" fill="#121212" />
-            <rect width="40" height="40" fill="#181818" />
-            <rect x="40" y="40" width="40" height="40" fill="#181818" />
-          </pattern>
-          <pattern id="water" width="24" height="12" patternUnits="userSpaceOnUse">
-            <rect width="24" height="12" fill="#10324a" />
-            <path d="M0 6 Q6 2 12 6 T24 6" stroke="#2d7fb5" strokeWidth="2" fill="none" />
-          </pattern>
-        </defs>
-
-        <rect x={-2000} y={-2000} width={5000} height={5000} fill="url(#checker)" />
-
-        <g className="map-layer">
-          {/* Outline pass first, then fills on top, so touching shapes merge into one wall. */}
-          <g className="map-outline">
-            {shapes.map((s, i) => (
-              <rect key={i} x={s.rect[0]} y={s.rect[1]} width={s.rect[2]} height={s.rect[3]} />
-            ))}
-          </g>
-          <g>
-            {shapes.map((s, i) => (
-              <rect
-                key={i}
-                className={`map-shape map-shape--${s.kind ?? 'room'}`}
-                x={s.rect[0]}
-                y={s.rect[1]}
-                width={s.rect[2]}
-                height={s.rect[3]}
-                fill={s.kind === 'water' ? 'url(#water)' : undefined}
-              />
-            ))}
-          </g>
-          {floor.doors?.map(([x, y, w, h], i) => (
-            <rect key={i} className="map-door" x={x} y={y} width={w} height={h} />
-          ))}
-          {shapes.map(
-            (s, i) =>
-              s.label && (
-                <text
-                  key={i}
-                  className="map-label"
-                  x={s.rect[0] + s.rect[2] / 2}
-                  y={s.rect[1] + s.rect[3] - 10}
-                  textAnchor="middle"
-                >
-                  {s.label}
-                </text>
-              ),
-          )}
-          {floor.connectors.map((c) => (
-            <g
-              key={c.to}
-              className="map-connector"
-              transform={`translate(${c.x} ${c.y})`}
-              role="button"
-              tabIndex={0}
-              aria-label={`Go to ${c.label}`}
-              onPointerDown={(e) => e.stopPropagation()}
-              onClick={() => goFloor(c.to)}
-              onKeyDown={(e) => e.key === 'Enter' && goFloor(c.to)}
-            >
-              <path d={ARROW[c.dir]} />
-              <text y={c.dir === 'up' ? 32 : -22} textAnchor="middle">
-                {c.label}
-              </text>
-            </g>
-          ))}
-        </g>
-
-        <g className="map-markers">
-          {markers.map((m) => (
-            <MapMarker
-              key={m.id}
-              marker={m}
-              k={k}
-              selected={m.id === selectedId}
-              onSelect={onSelect}
-              onHover={setHoverId}
-            />
-          ))}
-        </g>
-
-        {hovered && (
-          <g
-            className="map-tooltip"
-            transform={`translate(${hovered.x} ${hovered.y - 26 * k}) scale(${k})`}
-            pointerEvents="none"
+      <div className="map-stage">
+        <div className="map-lens">
+          <svg
+            ref={svgRef}
+            className="map-svg"
+            viewBox={`${vb.x} ${vb.y} ${vb.w} ${vb.h}`}
+            onPointerDown={onPointerDown}
+            onPointerMove={onPointerMove}
+            onPointerUp={onPointerUp}
+            onPointerCancel={() => (drag.current = null)}
           >
-            <rect x={-hovered.name.length * 4.6 - 12} y={-30} width={hovered.name.length * 9.2 + 24} height={26} />
-            <text y={-12} textAnchor="middle">
-              {hovered.name}
-            </text>
-          </g>
-        )}
-      </svg>
+            <g className="map-layer">
+              {/* Outline pass first, then fills on top, so touching shapes merge into one wall. */}
+              <g className="map-outline">
+                {shapes.map((s, i) => (
+                  <rect key={i} x={s.rect[0]} y={s.rect[1]} width={s.rect[2]} height={s.rect[3]} />
+                ))}
+              </g>
+              <g>
+                {shapes.map((s, i) => (
+                  <rect
+                    key={i}
+                    className={`map-shape map-shape--${s.kind ?? 'room'}`}
+                    x={s.rect[0]}
+                    y={s.rect[1]}
+                    width={s.rect[2]}
+                    height={s.rect[3]}
+                  />
+                ))}
+              </g>
+              {/* Inner trim line on rooms, like the in-game map. */}
+              <g className="map-trim">
+                {shapes
+                  .filter((s) => !s.kind && s.rect[2] > 60 && s.rect[3] > 60)
+                  .map((s, i) => (
+                    <rect key={i} x={s.rect[0] + 9} y={s.rect[1] + 9} width={s.rect[2] - 18} height={s.rect[3] - 18} />
+                  ))}
+              </g>
+              {floor.doors?.map(([x, y, w, h], i) => (
+                <rect key={i} className="map-door" x={x} y={y} width={w} height={h} />
+              ))}
+              {shapes.map(
+                (s, i) =>
+                  s.label && (
+                    <text
+                      key={i}
+                      className="map-label"
+                      x={s.rect[0] + s.rect[2] / 2}
+                      y={s.rect[1] + s.rect[3] - 16}
+                      textAnchor="middle"
+                    >
+                      {s.label}
+                    </text>
+                  ),
+              )}
+              {floor.connectors.map((c) => (
+                <g
+                  key={c.to}
+                  className="map-connector"
+                  transform={`translate(${c.x} ${c.y})`}
+                  role="button"
+                  tabIndex={0}
+                  aria-label={`Go to ${c.label}`}
+                  onPointerDown={(e) => e.stopPropagation()}
+                  onClick={() => goFloor(c.to)}
+                  onKeyDown={(e) => e.key === 'Enter' && goFloor(c.to)}
+                >
+                  <path d={ARROW[c.dir]} />
+                  <text y={c.dir === 'up' ? 32 : -22} textAnchor="middle">
+                    {c.label}
+                  </text>
+                </g>
+              ))}
+            </g>
 
-      <div className="map-slash" aria-hidden="true" />
+            <g className="map-markers">
+              {markers.map((m) => (
+                <MapMarker
+                  key={m.id}
+                  marker={m}
+                  k={k}
+                  selected={m.id === selectedId}
+                  onSelect={onSelect}
+                  onHover={setHoverId}
+                />
+              ))}
+            </g>
+
+            {hovered && (
+              <g
+                className="map-tooltip"
+                transform={`translate(${hovered.x} ${hovered.y - 26 * k}) scale(${k})`}
+                pointerEvents="none"
+              >
+                <rect x={-hovered.name.length * 4.6 - 12} y={-30} width={hovered.name.length * 9.2 + 24} height={26} />
+                <text y={-12} textAnchor="middle">
+                  {hovered.name}
+                </text>
+              </g>
+            )}
+          </svg>
+          <div className="map-slash" aria-hidden="true" />
+        </div>
+      </div>
 
       <div className="map-controls">
-        <button type="button" aria-label="Zoom in" onClick={() => tweenView(zoomAt(viewRef.current, 0.7), 0.35)}>
+        <button type="button" aria-label="Zoom in" onClick={() => zoomButton(0.7)}>
           +
         </button>
-        <button type="button" aria-label="Zoom out" onClick={() => tweenView(zoomAt(viewRef.current, 1 / 0.7), 0.35)}>
+        <button type="button" aria-label="Zoom out" onClick={() => zoomButton(1 / 0.7)}>
           −
         </button>
         <button type="button" aria-label="Reset view" onClick={() => tweenView(HOME)}>

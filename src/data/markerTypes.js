@@ -1,46 +1,100 @@
-// Every filterable marker category. `icon` is SVG path data drawn in a 24x24 box.
+// Every filterable marker category.
+// `icon` is a list of path parts in a 24x24 box; parts with `hole: true` are
+// painted in the badge colour so they read as cut-outs.
+
+const star = (cx, cy, outer, inner, points = 5, rot = -90) => {
+  const pts = []
+  for (let i = 0; i < points * 2; i++) {
+    const r = i % 2 ? inner : outer
+    const a = ((rot + (i * 180) / points) * Math.PI) / 180
+    pts.push(`${(cx + r * Math.cos(a)).toFixed(2)} ${(cy + r * Math.sin(a)).toFixed(2)}`)
+  }
+  return `M${pts.join('L')}Z`
+}
+
 export const MARKER_TYPES = {
   safeRoom: {
     label: 'Safe Rooms',
     singular: 'Safe Room',
     color: '#3fa9f5',
-    icon: 'M4 21V9.5L12 3l8 6.5V21h-6v-6h-4v6z',
+    // Arched door with a Phantom star on it.
+    icon: [
+      { d: 'M4.5 22.5V10a7.5 7.5 0 0 1 15 0v12.5z' },
+      { d: 'M7 22.5V10.5a5 5 0 0 1 10 0v12z', hole: true },
+      { d: star(12, 14, 4.2, 1.8) },
+    ],
   },
   willSeed: {
     label: 'Will Seeds',
     singular: 'Will Seed',
     color: '#f5d90a',
-    icon: 'M12 2c3.2 4.2 6.5 7.4 6.5 11.5a6.5 6.5 0 0 1-13 0C5.5 9.4 8.8 6.2 12 2zm0 7c-1.4 2-2.8 3.4-2.8 5.2a2.8 2.8 0 0 0 5.6 0C14.8 12.4 13.4 11 12 9z',
+    // Glowing seed crystal with sparkles.
+    icon: [
+      { d: 'M12 1.5c3.6 5.3 7 8.8 7 13.3a7 7 0 0 1-14 0c0-4.5 3.4-8 7-13.3z' },
+      { d: 'M9.6 11.2c-1.2 1.7-1.9 3.1-1.9 4.3a2.4 2.4 0 0 0 1.2 2.1c-.3-1.9.2-4 .7-6.4z', hole: true },
+      { d: star(20.5, 4, 2.6, 0.7, 4, 0) },
+      { d: star(3.5, 6.5, 1.8, 0.5, 4, 0) },
+    ],
   },
   treasure: {
     label: 'Treasure',
     singular: 'Treasure',
     color: '#ff2a3d',
-    icon: 'M3 19h18l-1.2-11-5 4.2L12 5l-2.8 7.2-5-4.2z',
+    // The King's crown.
+    icon: [
+      { d: 'M2 18 3.5 6.5l4.8 4.6L12 3l3.7 8.1 4.8-4.6L22 18z' },
+      { d: 'M2.5 19.5h19V22h-19z' },
+      { d: 'M12 12.2a1.9 1.9 0 1 1 0 3.8 1.9 1.9 0 0 1 0-3.8z', hole: true },
+      { d: 'M6.3 14a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6zm11.4 0a1.3 1.3 0 1 1 0 2.6 1.3 1.3 0 0 1 0-2.6z', hole: true },
+    ],
   },
   chest: {
     label: 'Chests',
     singular: 'Chest',
     color: '#2ecc71',
-    icon: 'M3 11h18v9H3zm0-1.5C3 6.5 7 4 12 4s9 2.5 9 5.5zM10.5 12.5v3h3v-3z',
+    // Palace treasure chest with lock plate.
+    icon: [
+      { d: 'M2 10.5C2 6 6 3.5 12 3.5S22 6 22 10.5z' },
+      { d: 'M2 11.5h20v10H2z' },
+      { d: 'M5.5 4.8h2v17h-2zm11 0h2v17h-2z', hole: true },
+      { d: 'M9.8 9h4.4v6.5H9.8z', hole: true },
+      { d: 'M11 11h2v2.5h-2z' },
+    ],
   },
   shadow: {
     label: 'Shadows',
     singular: 'Shadow',
     color: '#b36cf0',
-    icon: 'M2.5 7.5C6 5 18 5 21.5 7.5 21.5 14 17.5 19 12 19S2.5 14 2.5 7.5zM6.5 10l1 2.5h3L10 10zm11 0l-1 2.5h-3L14 10z',
+    // Shadow mask with slanted eyes.
+    icon: [
+      { d: 'M.8 8.2c3.2-3.4 7.6-3 11.2-.2 3.6-2.8 8-3.2 11.2.2-.4 5.8-3.4 9.3-7.2 9.3-2 0-3.2-1.5-4-3.2-.8 1.7-2 3.2-4 3.2C4.2 17.5 1.2 14 .8 8.2z' },
+      { d: 'M3.6 10.2c2-1.4 4.6-1.2 6.4.9-2 1.8-4.7 1.6-6.4-.9z', hole: true },
+      { d: 'M20.4 10.2c-2-1.4-4.6-1.2-6.4.9 2 1.8 4.7 1.6 6.4-.9z', hole: true },
+    ],
   },
   puzzle: {
     label: 'Puzzles',
     singular: 'Puzzle',
     color: '#ff8c1a',
-    icon: 'M4 4h5.5a2.5 2.5 0 1 1 5 0H20v5.5a2.5 2.5 0 1 1 0 5V20h-5.5a2.5 2.5 0 1 0-5 0H4v-5.5a2.5 2.5 0 1 0 0-5z',
+    // Ornate key.
+    icon: [
+      { d: 'M7.5 2a5.5 5.5 0 1 1 0 11 5.5 5.5 0 0 1 0-11z' },
+      { d: 'M7.5 5.3a2.2 2.2 0 1 0 0 4.4 2.2 2.2 0 0 0 0-4.4z', hole: true },
+      { d: 'M10.4 10.9l1.6-1.6 10.2 10.2-2.4 2.4-1.8-1.8-1.6 1.6-1.6-1.6 1.6-1.6-1.4-1.4-1.6 1.6-1.6-1.6 1.6-1.6z' },
+    ],
   },
   grapple: {
     label: 'Grappling Points',
     singular: 'Grappling Point',
     color: '#f4f4f4',
-    icon: 'M12 2.5a9.5 9.5 0 1 1 0 19 9.5 9.5 0 0 1 0-19zm0 4a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11zm0 3.5a2 2 0 1 1 0 4 2 2 0 0 1 0-4z',
+    // Grappling hook.
+    icon: [
+      { d: 'M12 .8a2.8 2.8 0 1 1 0 5.6 2.8 2.8 0 0 1 0-5.6z' },
+      { d: 'M12 2.4a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4z', hole: true },
+      { d: 'M10.8 6h2.4v15.5h-2.4z' },
+      { d: 'M2.5 11.5 5 9.8c.4 5.3 3 8.4 7 8.4s6.6-3.1 7-8.4l2.5 1.7c-.5 6.5-4.4 11-9.5 11s-9-4.5-9.5-11z' },
+      { d: 'M1.5 12.5 3 8.5l2.8 3zm21 0L21 8.5l-2.8 3z' },
+    ],
   },
 }
 

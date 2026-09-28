@@ -10,11 +10,19 @@ npm run dev
 
 ## Structure
 
+- `src/data/palaces.js` – list of all Palaces on the selection screen (add a new Palace here)
 - `src/data/kamoshida.js` – all data for Kamoshida's Palace: floors (SVG shapes), doors, stairs and markers
 - `src/data/markerTypes.js` – marker categories (colors + icons) for the filters/legend
+- `src/components/intro/` – the "Take Your Heart" intro (hat + ransom-note letters)
+- `src/components/PalaceSelect.jsx` – selection screen, `PalaceExplorer.jsx` – the map page
 - `src/components/` – `PalaceHeader`, `FilterPanel`, `MapViewer` (zoom/pan/floors), `InfoPanel`, `Legend`
 - `src/animations/gsap.js` – GSAP setup + helpers (respects `prefers-reduced-motion`)
 - `public/images/` – your own images, see `public/images/README.md`
+
+## Pages
+
+- `#/` – Palace selection
+- `#/palace/kamoshida` – Kamoshida's Palace
 
 ## Adding or editing a marker
 
