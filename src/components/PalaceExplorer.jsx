@@ -93,7 +93,6 @@ export default function PalaceExplorer({ palace, animate, onBack }) {
           palace={palace}
           marker={selected}
           floorName={palace.floors.find((f) => f.id === selected?.floor)?.name}
-          counts={typeCounts}
           onClose={() => setSelectedId(null)}
           onFocus={focusSelected}
         />

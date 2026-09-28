@@ -4,15 +4,16 @@ const BADGE = '-15 -17 17 -14 16 15 -17 13'
 const BG = '#0b0b0b'
 
 // P5-style badge (tilted card with a coloured offset shadow), drawn around 0,0.
-export default function MarkerGlyph({ type, selected = false, locked = false }) {
+export default function MarkerGlyph({ type, tint, selected = false, locked = false }) {
   const t = MARKER_TYPES[type]
+  const color = tint ?? t.color
   return (
     <g className="marker-glyph">
-      <polygon points={BADGE} transform="translate(4 4)" fill={t.color} />
+      <polygon points={BADGE} transform="translate(4 4)" fill={color} />
       <polygon points={BADGE} fill={BG} stroke={selected ? '#e60012' : '#f4f4f4'} strokeWidth="2.5" strokeLinejoin="round" />
       <g transform="translate(-10.2 -10.2) scale(0.85)">
         {t.icon.map((part, i) => (
-          <path key={i} d={part.d} fill={part.hole ? BG : t.color} />
+          <path key={i} d={part.d} fill={part.hole ? BG : color} />
         ))}
       </g>
       {locked && (

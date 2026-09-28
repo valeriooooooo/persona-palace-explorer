@@ -99,3 +99,13 @@ export const MARKER_TYPES = {
 }
 
 export const MARKER_TYPE_IDS = Object.keys(MARKER_TYPES)
+
+// Will Seeds come in three colours per Palace.
+export const SEED_COLORS = {
+  red: '#ff3b3b',
+  green: '#2ecc71',
+  blue: '#3f8cff',
+}
+
+// Colour of one marker: its seed colour if it has one, else its category colour.
+export const markerColor = (marker) => SEED_COLORS[marker.seed] ?? MARKER_TYPES[marker.type].color

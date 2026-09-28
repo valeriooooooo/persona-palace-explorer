@@ -21,6 +21,7 @@ export const kamoshida = {
   deadline: '5/2',
   boss: 'Shadow Kamoshida',
   portrait: 'kamoshida/ruler.jpg',
+  portraitPosition: 'center top',
   banner: 'kamoshida/castle.jpg',
   startFloor: '1f',
   shadows: [
@@ -222,9 +223,9 @@ export const kamoshida = {
     },
     {
       id: '2f-seed', type: 'willSeed', floor: '2f', x: 245, y: 210,
-      name: 'Will Seed of Lust', location: 'Gallery (2F)', reward: 'Crystal of Lust (with all 3 seeds)',
+      name: 'Red Will Seed', seed: 'red', location: 'Gallery (2F)', reward: 'Crystal of Lust (with all 3 seeds)',
       description: "A seed that embodies Kamoshida's distorted desires. Destroy it to recover SP and take a step toward the Crystal of Lust.",
-      image: 'kamoshida/will-seed.jpg',
+      image: 'kamoshida/red-will-seed.png', imagePosition: 'center 35%',
     },
     {
       id: '2f-library', type: 'puzzle', floor: '2f', x: 255, y: 425,
@@ -255,9 +256,9 @@ export const kamoshida = {
     },
     {
       id: '3f-seed', type: 'willSeed', floor: '3f', x: 250, y: 555,
-      name: 'Will Seed of Lust', location: 'Balcony (3F)', requires: 'Grappling Hook (Royal)', reward: 'Crystal of Lust (with all 3 seeds)',
+      name: 'Green Will Seed', seed: 'green', location: 'Balcony (3F)', requires: 'Grappling Hook (Royal)', reward: 'Crystal of Lust (with all 3 seeds)',
       description: 'Out on the balcony, reachable only with the grappling hook.',
-      image: 'kamoshida/will-seed.jpg',
+      image: 'kamoshida/green-will-seed.png', imagePosition: 'center 35%',
     },
     {
       id: '3f-grapple', type: 'grapple', floor: '3f', x: 135, y: 470,
@@ -288,21 +289,21 @@ export const kamoshida = {
     },
     {
       id: 'tower-seed', type: 'willSeed', floor: 'tower', x: 200, y: 405,
-      name: 'Will Seed of Lust', location: 'Tower Gallery', reward: 'Crystal of Lust (with all 3 seeds)',
+      name: 'Blue Will Seed', seed: 'blue', location: 'Tower Gallery', reward: 'Crystal of Lust (with all 3 seeds)',
       description: 'The last seed. Collect all three seeds in this Palace to form the Crystal of Lust.',
-      image: 'kamoshida/will-seed.jpg',
+      image: 'kamoshida/blue-will-seed.png', imagePosition: 'center 35%',
     },
     {
       id: 'tower-boss', type: 'shadow', floor: 'tower', x: 500, y: 190,
       name: 'Shadow Kamoshida', location: 'Throne Room',
       description: 'The king of the castle. Once the calling card is sent, confront him here to steal his distorted desires.',
-      image: 'kamoshida/boss.jpg',
+      image: 'kamoshida/boss.avif', imagePosition: 'center 15%',
     },
     {
       id: 'tower-treasure', type: 'treasure', floor: 'tower', x: 500, y: 60,
       name: 'The Crown', location: 'Treasure Room', requires: 'Calling Card',
       description: "The Treasure: the source of Kamoshida's distortion. It only takes shape after the calling card has been delivered.",
-      image: 'kamoshida/treasure.jpg',
+      image: 'kamoshida/treasure.png', imageFit: 'contain',
     },
     {
       id: 'tower-chest', type: 'chest', floor: 'tower', x: 500, y: 525,

@@ -18,7 +18,7 @@ export default function PalaceHeader({ palace }) {
       </p>
 
       <div className="ruler" data-anim="ruler">
-        <ImageSlot className="ruler__portrait" src={palace.portrait} alt={palace.ruler} />
+        <ImageSlot className="ruler__portrait" src={palace.portrait} alt={palace.ruler} position={palace.portraitPosition} />
         <dl className="ruler__card">
           <div>
             <dt>Palace Ruler</dt>

@@ -1,5 +1,5 @@
 import { useRef } from 'react'
-import { MARKER_TYPES } from '../data/markerTypes'
+import { MARKER_TYPES, SEED_COLORS, markerColor } from '../data/markerTypes'
 import { gsap, useGSAP, reducedMotion } from '../animations/gsap'
 import ImageSlot from './ui/ImageSlot'
 import MarkerIcon from './ui/MarkerIcon'
@@ -23,13 +23,22 @@ function MarkerDetails({ marker, floorName, onClose, onFocus }) {
           ✕
         </button>
       </div>
-      <ImageSlot className="info-card__image" src={marker.image} alt={marker.name} />
+      <ImageSlot
+        className="info-card__image"
+        src={marker.image}
+        alt={marker.name}
+        fit={marker.imageFit}
+        position={marker.imagePosition}
+      />
       <dl className="info-card__rows">
         <div className="info-row">
           <dt>
-            <MarkerIcon type={marker.type} size={20} /> Type
+            <MarkerIcon type={marker.type} tint={markerColor(marker)} size={20} /> Type
           </dt>
-          <dd style={{ color: t.color }}>{marker.locked ? `Locked ${t.singular}` : t.singular}</dd>
+          <dd style={{ color: markerColor(marker) }}>
+            {marker.locked ? `Locked ${t.singular}` : t.singular}
+            {marker.seed && ` · ${marker.seed}`}
+          </dd>
         </div>
         <Row label="Location" value={`${marker.location} · ${floorName}`} />
         <Row label="Requires" value={marker.requires} />
@@ -43,7 +52,7 @@ function MarkerDetails({ marker, floorName, onClose, onFocus }) {
   )
 }
 
-function PalaceOverview({ palace, counts }) {
+function PalaceOverview({ palace }) {
   return (
     <>
       <div className="info-card__head">
@@ -55,7 +64,15 @@ function PalaceOverview({ palace, counts }) {
         <Row label="Deadline" value={palace.deadline} />
         <Row label="Boss" value={palace.boss} />
         <Row label="Keywords" value={palace.keywords.join(' · ')} />
-        <Row label="Will Seeds" value={`${counts.willSeed ?? 0} → Crystal of ${palace.sin}`} />
+        <div className="info-row">
+          <dt>Will Seeds</dt>
+          <dd className="seed-row">
+            {Object.entries(SEED_COLORS).map(([name, color]) => (
+              <MarkerIcon key={name} type="willSeed" tint={color} size={22} />
+            ))}
+            → Crystal of {palace.sin}
+          </dd>
+        </div>
       </dl>
       <h3 className="info-card__sub">Shadows</h3>
       <ul className="shadow-list">
@@ -71,7 +88,7 @@ function PalaceOverview({ palace, counts }) {
   )
 }
 
-export default function InfoPanel({ palace, marker, floorName, counts, onClose, onFocus }) {
+export default function InfoPanel({ palace, marker, floorName, onClose, onFocus }) {
   const ref = useRef(null)
 
   // New selection: the "calling card" slams in with a small tilt and shake.
@@ -101,7 +118,7 @@ export default function InfoPanel({ palace, marker, floorName, counts, onClose, 
         {marker ? (
           <MarkerDetails marker={marker} floorName={floorName} onClose={onClose} onFocus={onFocus} />
         ) : (
-          <PalaceOverview palace={palace} counts={counts} />
+          <PalaceOverview palace={palace} />
         )}
       </div>
     </aside>

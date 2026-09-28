@@ -2,7 +2,8 @@ import { useState } from 'react'
 
 // Shows /public/images/<src>. Until that file exists, renders a halftone
 // placeholder that names the file to add.
-export default function ImageSlot({ src, alt, className = '' }) {
+// `fit` ('cover' | 'contain') and `position` tune how the image is cropped.
+export default function ImageSlot({ src, alt, className = '', fit = 'cover', position = 'center' }) {
   const [failedSrc, setFailedSrc] = useState(null)
   const missing = !src || failedSrc === src
 
@@ -17,8 +18,13 @@ export default function ImageSlot({ src, alt, className = '' }) {
   }
 
   return (
-    <div className={`image-slot ${className}`}>
-      <img src={`/images/${src}`} alt={alt} onError={() => setFailedSrc(src)} />
+    <div className={`image-slot image-slot--${fit} ${className}`}>
+      <img
+        src={`/images/${src}`}
+        alt={alt}
+        style={{ objectFit: fit, objectPosition: position }}
+        onError={() => setFailedSrc(src)}
+      />
     </div>
   )
 }

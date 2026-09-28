@@ -120,6 +120,16 @@
   height: 100%;
   object-fit: cover;
 }
+/* Cut-out images (transparent PNGs) sit on a dark red glow. */
+.image-slot--contain {
+  background: radial-gradient(circle at 50% 55%, #5a0008 0, #140204 70%);
+}
+.image-slot--contain img {
+  padding: 8px;
+}
+.ruler__portrait {
+  background: var(--p5-white);
+}
 .image-slot--empty {
   display: grid;
   place-items: center;
@@ -619,6 +629,12 @@
   display: flex;
   align-items: center;
   gap: 6px;
+}
+.seed-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 4px;
 }
 .info-row dd {
   margin: 0;
