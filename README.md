@@ -1,16 +1,35 @@
-# React + Vite
+# Persona 5 Royal – Palace Explorer
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A MapGenie-style interactive map for the Palaces from Persona 5 Royal, in the style of the P5R UI.
+Built with React + Vite, with animations in GSAP.
 
-Currently, two official plugins are available:
+```bash
+npm install
+npm run dev
+```
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Structure
 
-## React Compiler
+- `src/data/kamoshida.js` – all data for Kamoshida's Palace: floors (SVG shapes), doors, stairs and markers
+- `src/data/markerTypes.js` – marker categories (colors + icons) for the filters/legend
+- `src/components/` – `PalaceHeader`, `FilterPanel`, `MapViewer` (zoom/pan/floors), `InfoPanel`, `Legend`
+- `src/animations/gsap.js` – GSAP setup + helpers (respects `prefers-reduced-motion`)
+- `public/images/` – your own images, see `public/images/README.md`
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Adding or editing a marker
 
-## Expanding the ESLint configuration
+In `src/data/kamoshida.js`, under `markers`:
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+```js
+{ id: '2f-chest-x', type: 'chest', floor: '2f', x: 300, y: 200,
+  name: 'Chest name', location: 'Library', reward: 'Medicine', requires: 'Lockpick',
+  description: '...', locked: true, image: 'kamoshida/foo.jpg' }
+```
+
+The coordinates are in the map's 1000×640 grid.
+
+## Note about the data
+
+The floor plans are simplified schematics (not traces of the game), and the marker
+positions, chest contents and puzzle descriptions are a first draft. Check them
+against a guide and adjust them in `kamoshida.js`.
