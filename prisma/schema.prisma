@@ -28,6 +28,8 @@ model Palace {
   deadline    String?
   description String?
   crystal     String? /// reward for collecting all 3 Will Seeds
+  party       String? /// party members in this Palace, e.g. "Joker (Arsene), Mona (Zorro)"
+  source      String? /// where the info comes from
   portrait    String? /// image path inside public/images
   banner      String? /// image path inside public/images
   status      String  @default("coming-soon") /// "available" or "coming-soon"
@@ -86,6 +88,8 @@ model Enemy {
   name        String
   arcana      String?
   level       Int?
+  personality String? /// used when negotiating, e.g. "Timid"
+  drops       String? /// item drops, comma-separated
   weak        String? /// comma-separated elements
   resist      String?
   nullify     String?
@@ -117,10 +121,14 @@ model Boss {
   areaId      Int?
   slug        String
   name        String
+  persona     String? /// the Shadow's true form, e.g. "Eligor"
   level       Int?
   hp          Int?
+  sp          Int?
+  skills      String? /// comma-separated
   weak        String?
   resist      String?
+  rewards     String? /// item drops / money / exp
   description String?
   image       String?
   isRuler     Boolean @default(false) /// the Palace ruler's final fight

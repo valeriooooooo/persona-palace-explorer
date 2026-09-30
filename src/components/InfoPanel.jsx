@@ -103,6 +103,7 @@ function PalaceOverview({ palace, areas, story, onGoTo }) {
     else route.push({ area: m.area, steps: [m] })
   }
   const ruler = palace.bosses.find((b) => b.isRuler) ?? palace.bosses[0]
+  const miniBosses = palace.bosses.filter((b) => b !== ruler)
 
   return (
     <>
@@ -132,11 +133,37 @@ function PalaceOverview({ palace, areas, story, onGoTo }) {
             <ImageSlot className="boss-card__image" src={ruler.image} alt={ruler.name} position="center 15%" />
             <div>
               <strong>{ruler.name}</strong>
-              {ruler.level && <span> · Lv {ruler.level}</span>}
+              {ruler.persona && <span> ({ruler.persona})</span>}
+              <p className="boss-card__stats">
+                {[ruler.level && `Lv ${ruler.level}`, ruler.hp && `${ruler.hp} HP`, ruler.sp && `${ruler.sp} SP`]
+                  .filter(Boolean)
+                  .join(' · ')}
+              </p>
               {ruler.weak && <p className="boss-card__weak">Weak: {ruler.weak}</p>}
-              {ruler.description && <p>{ruler.description}</p>}
             </div>
           </div>
+          {ruler.skills && <p className="boss-card__line">Skills: {ruler.skills}</p>}
+          {ruler.rewards && <p className="boss-card__line">Rewards: {ruler.rewards}</p>}
+          {ruler.description && <p className="boss-card__line">{ruler.description}</p>}
+        </>
+      )}
+
+      {miniBosses.length > 0 && (
+        <>
+          <h3 className="info-card__sub">Mini-bosses</h3>
+          <ul className="mini-bosses">
+            {miniBosses.map((b) => (
+              <li key={b.slug} title={b.description ?? undefined}>
+                <span>
+                  <strong>{b.name}</strong>
+                  {b.persona && ` (${b.persona})`}
+                </span>
+                <span className="mini-bosses__stats">
+                  {[b.hp && `${b.hp} HP`, b.weak && b.weak !== 'None' && `Weak: ${b.weak}`].filter(Boolean).join(' · ')}
+                </span>
+              </li>
+            ))}
+          </ul>
         </>
       )}
 
@@ -161,15 +188,32 @@ function PalaceOverview({ palace, areas, story, onGoTo }) {
       )}
 
       <h3 className="info-card__sub">Shadows</h3>
-      <ul className="shadow-list">
-        {palace.enemies.map((s) => (
-          <li key={s.slug} title={s.weak ? `Weak: ${s.weak}` : undefined}>
-            <span>{s.name}</span>
-            <span className="shadow-list__arcana">{s.arcana}</span>
-          </li>
-        ))}
-      </ul>
+      <table className="enemy-table">
+        <thead>
+          <tr>
+            <th>Shadow</th>
+            <th>Lv</th>
+            <th>Weak</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[...palace.enemies]
+            .sort((a, b) => (a.level ?? 99) - (b.level ?? 99))
+            .map((s) => (
+              <tr key={s.slug} title={s.drops ? `Drops: ${s.drops}` : undefined}>
+                <td>
+                  {s.name}
+                  <span className="enemy-table__arcana">{s.arcana}</span>
+                </td>
+                <td>{s.level ?? '–'}</td>
+                <td className="enemy-table__weak">{s.weak ?? '–'}</td>
+              </tr>
+            ))}
+        </tbody>
+      </table>
+      {palace.party && <Row label="Party" value={palace.party} />}
       <p className="info-card__hint">Select a marker on the map to see its details.</p>
+      {palace.source && <p className="info-card__source">Info: {palace.source}</p>}
     </>
   )
 }

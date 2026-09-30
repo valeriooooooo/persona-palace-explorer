@@ -503,7 +503,7 @@
 /* Area list: every map of the Palace in walking order */
 .area-list {
   position: absolute;
-  top: 118px;
+  top: 160px;
   bottom: 190px;
   left: 0;
   z-index: 2;
@@ -891,13 +891,13 @@
     min-height: 0;
   }
   .map-viewer {
-    height: 560px;
+    height: 620px;
   }
   .map-stage {
-    inset: 150px 0 52px;
+    inset: 196px 0 52px;
   }
   .area-list {
-    top: 104px;
+    top: 150px;
     bottom: auto;
     left: 8px;
     right: 8px;

@@ -459,6 +459,78 @@
   color: #d8d8d8;
   line-height: 1.4;
 }
+.boss-card__stats {
+  color: var(--p5-white) !important;
+  font-weight: 600;
+}
+.boss-card__line {
+  margin: 8px 0 0;
+  font-size: 0.88rem;
+  line-height: 1.45;
+  color: #d8d8d8;
+}
+.mini-bosses {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 0.88rem;
+}
+.mini-bosses li {
+  display: grid;
+  gap: 1px;
+  padding: 4px 0;
+  border-bottom: 1px dashed #333;
+}
+.mini-bosses__stats {
+  color: var(--p5-grey);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+.enemy-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.85rem;
+  margin-bottom: 10px;
+}
+.enemy-table th {
+  text-align: left;
+  color: var(--p5-red);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 2px 4px 4px 0;
+}
+.enemy-table td {
+  padding: 4px 4px 4px 0;
+  border-top: 1px dashed #333;
+  vertical-align: top;
+}
+.enemy-table__arcana {
+  display: block;
+  color: var(--p5-grey);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+.enemy-table__weak {
+  color: #ffd166;
+}
+.info-card__source {
+  margin: 10px 0 0;
+  font-size: 0.72rem;
+  color: var(--p5-grey);
+}
+.map-title__note {
+  margin: 4px 0 0 34px;
+  padding: 1px 12px;
+  background: var(--p5-red);
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transform: skewX(-10deg);
+}
 .boss-card__weak {
   color: var(--p5-red) !important;
   font-weight: 600;

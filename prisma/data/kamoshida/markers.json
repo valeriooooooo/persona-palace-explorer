@@ -4,7 +4,8 @@
     "type": "story",
     "x": 66.44,
     "y": 39.35,
-    "name": "Story 1",
+    "name": "Arsene awakens",
+    "description": "Check the barrels to trigger a cutscene: Joker awakens to his first Persona, Arsene. Beat the Jack-o'-Lantern by hitting its Wind weakness.",
     "step": 1
   },
   {
@@ -12,7 +13,8 @@
     "type": "story",
     "x": 51.74,
     "y": 38.73,
-    "name": "Story 2",
+    "name": "Around the locked door",
+    "description": "The door to the right of Kamoshida's cell is locked. Hop onto the path on the right and leave through the open door.",
     "step": 2
   },
   {
@@ -20,7 +22,8 @@
     "type": "story",
     "x": 45.86,
     "y": 13.89,
-    "name": "Story 3",
+    "name": "Across the water",
+    "description": "Head north and use the metal cages as stepping stones to cross the water.",
     "step": 3
   },
   {
@@ -28,7 +31,8 @@
     "type": "story",
     "x": 28.07,
     "y": 49.69,
-    "name": "Story 4",
+    "name": "Crack in the wall",
+    "description": "Go south into the open cell on the right and squeeze through the crack in the wall to the other side.",
     "step": 4
   },
   {
@@ -36,7 +40,8 @@
     "type": "story",
     "x": 65.11,
     "y": 84.41,
-    "name": "Story 5",
+    "name": "Spiral staircase",
+    "description": "Leave the cell, cross the bridge on the left, follow the path south and climb the spiral staircase.",
     "step": 5
   },
   {
@@ -44,7 +49,8 @@
     "type": "story",
     "x": 87.99,
     "y": 85.07,
-    "name": "Story 1",
+    "name": "Meet Morgana",
+    "description": "Upstairs, follow the path to the last cell and talk to Morgana.",
     "step": 1
   },
   {
@@ -52,7 +58,8 @@
     "type": "story",
     "x": 76.68,
     "y": 65.67,
-    "name": "Story 2",
+    "name": "Zorro",
+    "description": "Talk to Morgana again at the drawbridge and use the switch to lower it. Morgana shows off his Persona, Zorro.",
     "step": 2
   },
   {
@@ -60,76 +67,26 @@
     "type": "story",
     "x": 26.27,
     "y": 69.94,
-    "name": "Story 3",
+    "name": "Escape",
+    "description": "At the next drawbridge beat Bicorn (weak to Electric) and Pixie (weak to Curse or Gun). Take the stairs to the central hall and you are sent back to the real world.",
     "step": 3
   },
   {
-    "area": "west-building-first-floor",
-    "type": "safeRoom",
-    "x": 14.13,
-    "y": 13.27,
-    "name": "Safe Room"
-  },
-  {
-    "area": "west-building-first-floor",
-    "type": "chest",
-    "x": 13.04,
-    "y": 40.78,
-    "name": "Treasure Chest 1"
-  },
-  {
-    "area": "west-building-first-floor",
+    "area": "central-hall",
     "type": "story",
-    "x": 42.12,
-    "y": 66.99,
-    "name": "Story 1",
+    "x": 25.35,
+    "y": 70.42,
+    "name": "Back in the castle",
+    "description": "You start in the room on the left of the central hall. After the cutscene, follow Morgana to the spiral staircase.",
     "step": 1
   },
   {
-    "area": "west-building-first-floor",
+    "area": "central-hall",
     "type": "story",
-    "x": 35.87,
-    "y": 60.03,
-    "name": "Story 2",
-    "step": 2
-  },
-  {
-    "area": "west-building-first-floor",
-    "type": "story",
-    "x": 14.4,
-    "y": 6.15,
-    "name": "Story 3",
-    "step": 3
-  },
-  {
-    "area": "west-building-first-floor",
-    "type": "story",
-    "x": 14.81,
-    "y": 54.53,
-    "name": "Story 4",
-    "step": 4
-  },
-  {
-    "area": "west-building-first-floor-2",
-    "type": "safeRoom",
-    "x": 23.12,
-    "y": 20.26,
-    "name": "Safe Room"
-  },
-  {
-    "area": "west-building-first-floor-2",
-    "type": "story",
-    "x": 16.99,
-    "y": 20.76,
-    "name": "Story 1",
-    "step": 1
-  },
-  {
-    "area": "west-building-first-floor-2",
-    "type": "story",
-    "x": 16.71,
-    "y": 6.59,
-    "name": "Story 2",
+    "x": 72.13,
+    "y": 55.4,
+    "name": "Down to the prison",
+    "description": "Take the spiral staircase down. A cutscene plays when you reach the door.",
     "step": 2
   },
   {
@@ -137,14 +94,16 @@
     "type": "safeRoom",
     "x": 34.16,
     "y": 49.89,
-    "name": "Safe Room"
+    "name": "Safe Room 1",
+    "description": "Safe room #1 of the Palace: save your game and quick travel between safe rooms."
   },
   {
     "area": "underground-prison-first-floor-2",
     "type": "story",
     "x": 15.59,
     "y": 36.52,
-    "name": "Story 1",
+    "name": "First ambush",
+    "description": "Sneak up behind the guard patrolling the cells and take it out. Cross the bridge on the left, enter the hallway and check the first door on the left for a cutscene.",
     "step": 1
   },
   {
@@ -152,7 +111,8 @@
     "type": "story",
     "x": 34.03,
     "y": 39.28,
-    "name": "Story 2",
+    "name": "First Safe Room",
+    "description": "In the first safe room Ryuji gives you a gun and medicine. Save here, then ambush the next enemy further down the hall.",
     "step": 2
   },
   {
@@ -160,7 +120,8 @@
     "type": "story",
     "x": 60.27,
     "y": 51.38,
-    "name": "Story 3",
+    "name": "To the training hall",
+    "description": "The door at the end of the passage leads to the training hall.",
     "step": 3
   },
   {
@@ -168,7 +129,8 @@
     "type": "story",
     "x": 57.16,
     "y": 70.16,
-    "name": "Story 1",
+    "name": "Training hall",
+    "description": "Follow the path to the training hall and watch the cutscene.",
     "step": 1
   },
   {
@@ -176,7 +138,8 @@
     "type": "story",
     "x": 31.77,
     "y": 42.14,
-    "name": "Story 2",
+    "name": "Training Hall of Love",
+    "description": "Go into the Training Hall of Love.",
     "step": 2
   },
   {
@@ -184,7 +147,8 @@
     "type": "story",
     "x": 55.48,
     "y": 73.52,
-    "name": "Story 1",
+    "name": "The captive students",
+    "description": "A cutscene plays along the path. You can check the cells to see the students being held here.",
     "step": 1
   },
   {
@@ -192,7 +156,87 @@
     "type": "story",
     "x": 61.92,
     "y": 28.88,
-    "name": "Story 2",
+    "name": "Back to the central hall",
+    "description": "Leave the training hall for another cutscene, then head back to the central hall, where Shadow Kamoshida is waiting with his guards (this part has no map yet).",
+    "step": 2
+  },
+  {
+    "area": "west-building-first-floor",
+    "type": "safeRoom",
+    "x": 14.13,
+    "y": 13.27,
+    "name": "Safe Room 2",
+    "description": "Safe room #2 of the Palace: save your game and quick travel between safe rooms."
+  },
+  {
+    "area": "west-building-first-floor",
+    "type": "chest",
+    "x": 13.04,
+    "y": 40.78,
+    "name": "Silver Dagger",
+    "description": "Weapon for Joker, in the room next to the second safe room.",
+    "reward": "Silver Dagger"
+  },
+  {
+    "area": "west-building-first-floor",
+    "type": "story",
+    "x": 42.12,
+    "y": 66.99,
+    "name": "Into the castle",
+    "description": "Walk ahead and leave the room. A cutscene plays in the central hall.",
+    "step": 1
+  },
+  {
+    "area": "west-building-first-floor",
+    "type": "story",
+    "x": 35.87,
+    "y": 60.03,
+    "name": "Hold Up & Personas",
+    "description": "Fight the enemy in the room on the left and learn about Hold Ups and switching Personas. Enemies here: Pixie (Gun, Curse), Jack-o'-Lantern (Wind), Bicorn (Electric), Mandrake (Fire) and Incubus (Fire).",
+    "step": 2
+  },
+  {
+    "area": "west-building-first-floor",
+    "type": "story",
+    "x": 14.4,
+    "y": 6.15,
+    "name": "Second Safe Room",
+    "description": "A cutscene plays in the second safe room. Save here, then open the chest in the room nearby for the Silver Dagger and equip it on Joker.",
+    "step": 3
+  },
+  {
+    "area": "west-building-first-floor",
+    "type": "story",
+    "x": 14.81,
+    "y": 54.53,
+    "name": "Carmen awakens",
+    "description": "Follow the suits of armor to the next room. Ann awakens to her Persona, Carmen. Beat the Belphegor mini-boss by using Fire.",
+    "step": 4
+  },
+  {
+    "area": "west-building-first-floor-2",
+    "type": "safeRoom",
+    "x": 23.12,
+    "y": 20.26,
+    "name": "Safe Room 2",
+    "description": "Safe room #2 of the Palace: save your game and quick travel between safe rooms."
+  },
+  {
+    "area": "west-building-first-floor-2",
+    "type": "story",
+    "x": 16.99,
+    "y": 20.76,
+    "name": "Supplies from Mona",
+    "description": "Save in the second safe room. Mona gives you SP recovery items in the room on the right, and infiltration tools by the spiral staircase in the northwest. Ambush the guards around the long tables (Baton Pass tutorial).",
+    "step": 1
+  },
+  {
+    "area": "west-building-first-floor-2",
+    "type": "story",
+    "x": 16.71,
+    "y": 6.59,
+    "name": "Next door",
+    "description": "Go through the door afterwards.",
     "step": 2
   },
   {
@@ -200,42 +244,54 @@
     "type": "safeRoom",
     "x": 57.57,
     "y": 76.46,
-    "name": "Safe Room"
+    "name": "Safe Room 3",
+    "description": "Safe room #3 of the Palace: save your game and quick travel between safe rooms."
   },
   {
     "area": "west-building--central-hall--east-building-second-floor",
     "type": "chest",
     "x": 55.61,
     "y": 87.43,
-    "name": "Treasure Chest 1"
+    "name": "Locked Chest",
+    "description": "Locked chest at the east building entrance. Open it with your first Lockpick.",
+    "reward": "Armor",
+    "requires": "Lockpick",
+    "locked": true
   },
   {
     "area": "west-building--central-hall--east-building-second-floor",
     "type": "chest",
     "x": 70.87,
     "y": 41.77,
-    "name": "Treasure Chest 2"
+    "name": "Dirty armor",
+    "description": "In the room behind the vent, during the dining hall switch puzzle.",
+    "reward": "Dirty armor"
   },
   {
     "area": "west-building--central-hall--east-building-second-floor",
     "type": "chest",
     "x": 79.42,
     "y": 34.16,
-    "name": "Treasure Chest 3"
+    "name": "Accessory for Panther",
+    "description": "Behind the vent in the west wall of the northern room.",
+    "reward": "Accessory for Panther"
   },
   {
     "area": "west-building--central-hall--east-building-second-floor",
     "type": "chest",
     "x": 82.77,
     "y": 72.57,
-    "name": "Treasure Chest 4"
+    "name": "Soul Drop",
+    "description": "South corner of the room on the far east.",
+    "reward": "Soul Drop"
   },
   {
     "area": "west-building--central-hall--east-building-second-floor",
     "type": "story",
     "x": 7.75,
     "y": 7.79,
-    "name": "Story 1",
+    "name": "The lit corridor",
+    "description": "Climb the spiral staircase and follow the lit corridor (Hiding tutorial). Use the chairs as cover for ambushes. Agathion and Cait Sith are both weak to Wind. Enter the door on the right.",
     "step": 1
   },
   {
@@ -243,7 +299,8 @@
     "type": "story",
     "x": 23.24,
     "y": 48.85,
-    "name": "Story 2",
+    "name": "Old Castle Map",
+    "description": "Pick up the Old Castle Map (Palace Maps tutorial). Leave through the door in the southwest corner and follow the corridor to the second floor of the central hall.",
     "step": 2
   },
   {
@@ -251,7 +308,8 @@
     "type": "story",
     "x": 26.94,
     "y": 49.73,
-    "name": "Story 2.1",
+    "name": "Switch puzzle",
+    "description": "Use Third Eye to see which switches to pull, and in what order. Pulling switches can make enemies appear.",
     "step": 2,
     "subStep": 1
   },
@@ -260,7 +318,8 @@
     "type": "story",
     "x": 17.69,
     "y": 49.73,
-    "name": "Story 2.2",
+    "name": "Second switch",
+    "description": "Cross to the opposite side of the room and examine the second switch.",
     "step": 2,
     "subStep": 2
   },
@@ -269,7 +328,8 @@
     "type": "story",
     "x": 32.49,
     "y": 93.45,
-    "name": "Story 3",
+    "name": "Chandeliers",
+    "description": "Climb onto the platform above the bookshelf, walk along the beams and jump across the chandeliers to the right side of the hall.",
     "step": 3
   },
   {
@@ -277,7 +337,8 @@
     "type": "story",
     "x": 45.32,
     "y": 94.16,
-    "name": "Story 4",
+    "name": "Shortcut & first Lockpick",
+    "description": "Before jumping down, go through the open window to unlock a shortcut to the castle gate. At the east building entrance, open the locked chest with your first Lockpick.",
     "step": 4
   },
   {
@@ -285,7 +346,8 @@
     "type": "story",
     "x": 57.46,
     "y": 69.03,
-    "name": "Story 5",
+    "name": "Third Safe Room",
+    "description": "Save in the third safe room, then follow the path on the right to the locked dining hall. Silky (Electric, Fire) and Kelpie (Electric) roam here.",
     "step": 5
   },
   {
@@ -293,7 +355,8 @@
     "type": "story",
     "x": 71.45,
     "y": 82.83,
-    "name": "Story 6",
+    "name": "Dining hall switches",
+    "description": "Pull the switch in the southwest corner behind the locked entrance.",
     "step": 6
   },
   {
@@ -301,7 +364,8 @@
     "type": "story",
     "x": 67.75,
     "y": 75.04,
-    "name": "Story 6.1",
+    "name": "Entrance switch",
+    "description": "Go back to the locked dining hall entrance and pull the switch there.",
     "step": 6,
     "subStep": 1
   },
@@ -310,7 +374,8 @@
     "type": "story",
     "x": 73.06,
     "y": 64.07,
-    "name": "Story 6.2",
+    "name": "East wall",
+    "description": "Inside the dining hall, pull the switch on the east wall and go into the room to the east.",
     "step": 6,
     "subStep": 2
   },
@@ -319,7 +384,8 @@
     "type": "story",
     "x": 76.07,
     "y": 63.72,
-    "name": "Story 6.3",
+    "name": "North gate",
+    "description": "Pull the switch on the west wall to open the gate in the north wall.",
     "step": 6,
     "subStep": 3
   },
@@ -328,7 +394,8 @@
     "type": "story",
     "x": 78.73,
     "y": 55.04,
-    "name": "Story 6.4",
+    "name": "Into the vent",
+    "description": "Pull the switch in the room to the north, climb the shelf and crawl into the vent.",
     "step": 6,
     "subStep": 4
   },
@@ -337,7 +404,8 @@
     "type": "story",
     "x": 72.37,
     "y": 47.26,
-    "name": "Story 6.5",
+    "name": "Open the way east",
+    "description": "Drop down, grab the chest in the room (dirty armor) and pull the switch on the east wall to open the path east.",
     "step": 6,
     "subStep": 5
   },
@@ -346,7 +414,8 @@
     "type": "story",
     "x": 84.16,
     "y": 63.36,
-    "name": "Story 7",
+    "name": "Soul Drop",
+    "description": "Beat the guard in the room on the far east. The chest in its south corner holds a Soul Drop.",
     "step": 7
   },
   {
@@ -354,7 +423,8 @@
     "type": "story",
     "x": 89.83,
     "y": 40.53,
-    "name": "Story 8",
+    "name": "Through the vent",
+    "description": "Go north, beat the enemy, climb the shelves along the west wall and crawl through the vent. Beat the enemy on the other side and open the chest: an accessory for Panther.",
     "step": 8
   },
   {
@@ -362,52 +432,188 @@
     "type": "story",
     "x": 91.33,
     "y": 24.96,
-    "name": "Story 9",
+    "name": "To East Building 3F",
+    "description": "Follow the corridor, turn left and take the spiral staircase up to East Building 3F.",
     "step": 9
   },
   {
-    "area": "central-hall",
+    "area": "east-building-third-floor",
+    "type": "safeRoom",
+    "x": 25.53,
+    "y": 38.69,
+    "name": "Safe Room 4",
+    "description": "Safe room #4 of the Palace: save your game and quick travel between safe rooms."
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "safeRoom",
+    "x": 29.81,
+    "y": 85.08,
+    "name": "Safe Room 5",
+    "description": "Safe room #5 of the Palace: save your game and quick travel between safe rooms."
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "chest",
+    "x": 20.13,
+    "y": 83.61,
+    "name": "Judge Mace",
+    "description": "Weapon for Skull, in the hall south of the library.",
+    "reward": "Judge Mace"
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "chest",
+    "x": 57.14,
+    "y": 61.15,
+    "name": "Soul Drop",
+    "description": "Left side of the chapel.",
+    "reward": "Soul Drop"
+  },
+  {
+    "area": "east-building-third-floor",
     "type": "story",
-    "x": 25.35,
-    "y": 70.42,
-    "name": "Story 1",
+    "x": 34.31,
+    "y": 16.56,
+    "name": "Grappling Hook",
+    "description": "Learn to use the Grappling Hook and latch onto the goat head. Go down the stairs, head left and save in the fourth safe room. Ambush the strong enemy nearby: Berith, weak to Ice.",
     "step": 1
   },
   {
-    "area": "central-hall",
+    "area": "east-building-third-floor",
     "type": "story",
-    "x": 72.13,
-    "y": 55.4,
-    "name": "Story 2",
+    "x": 30.26,
+    "y": 45.41,
+    "name": "Book of Slaves",
+    "description": "Grab the \"Book of Slaves\" in the room to the right of the locked gate.",
     "step": 2
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "story",
+    "x": 15.19,
+    "y": 38.69,
+    "name": "Book of the Queen",
+    "description": "Grab the \"Book of the Queen\" in the room to the northwest.",
+    "step": 3
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "story",
+    "x": 10.01,
+    "y": 45.41,
+    "name": "The library",
+    "description": "Take \"Modern Alchemy\" from the southwest room (players report it is actually called \"The Beefcake Book\" in the game). Ambush the strong enemy in the hall to the south; the chest there has the Judge Mace for Skull. Enter the library through the door on the right.",
+    "step": 4
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "story",
+    "x": 27,
+    "y": 62.79,
+    "name": "Book of the King",
+    "description": "Take the \"Book of the King\" from the desk in the lower right of the library.",
+    "step": 4,
+    "subStep": 1
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "story",
+    "x": 28.46,
+    "y": 56.56,
+    "name": "Northeast shelf",
+    "description": "Put the \"Book of the King\" on the northeast shelf.",
+    "step": 4,
+    "subStep": 2
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "story",
+    "x": 31.61,
+    "y": 62.79,
+    "name": "East shelf",
+    "description": "Put the \"Book of the Queen\" on the east shelf.",
+    "step": 4,
+    "subStep": 3
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "story",
+    "x": 25.76,
+    "y": 69.02,
+    "name": "Southwest shelf",
+    "description": "Put the \"Book of Slaves\" on the southwest shelf.",
+    "step": 4,
+    "subStep": 4
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "story",
+    "x": 29.92,
+    "y": 75.41,
+    "name": "Hidden room",
+    "description": "The hidden room in the southeast corner opens. Take the Kamoshida Gold Medal and the Map of the Tower from the shelves (Disaster Shadows tutorial).",
+    "step": 5
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "story",
+    "x": 20.7,
+    "y": 29.02,
+    "name": "The last book",
+    "description": "Outside the hidden library, put \"Modern Alchemy\" on the north shelf between the fourth safe room and the Book of the Queen room.",
+    "step": 6
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "story",
+    "x": 36,
+    "y": 54.43,
+    "name": "Golden gate",
+    "description": "Open the golden gate with the Kamoshida Gold Medal and save in the fifth safe room.",
+    "step": 7
+  },
+  {
+    "area": "east-building-third-floor",
+    "type": "story",
+    "x": 67.49,
+    "y": 87.7,
+    "name": "Heavenly Punisher",
+    "description": "Head to the chapel for the Archangel mini-boss. Guard while it is buffed, then debuff it and hit it with physical attacks while it charges up. Afterwards, grapple up to the ledge.",
+    "step": 8
   },
   {
     "area": "east-building-chapel",
     "type": "safeRoom",
     "x": 26.27,
     "y": 37.4,
-    "name": "Safe Room"
+    "name": "Safe Room 4",
+    "description": "Safe room #4 of the Palace: save your game and quick travel between safe rooms."
   },
   {
     "area": "east-building-chapel",
     "type": "safeRoom",
     "x": 30.27,
     "y": 83.1,
-    "name": "Safe Room"
+    "name": "Safe Room 5",
+    "description": "Safe room #5 of the Palace: save your game and quick travel between safe rooms."
   },
   {
     "area": "east-building-chapel",
     "type": "chest",
     "x": 57.08,
     "y": 58.69,
-    "name": "Treasure Chest 1"
+    "name": "Soul Drop",
+    "description": "Left side of the chapel.",
+    "reward": "Soul Drop"
   },
   {
     "area": "east-building-chapel",
     "type": "story",
     "x": 67.89,
     "y": 56.34,
-    "name": "Story 1",
+    "name": "Across the beams",
+    "description": "After the cutscene, cross the scaffolding to the south and use the beams to reach the east side of the chapel. Drop down to the northeast balcony and onto the boxes (or take the doorway to avoid fights). The chest on the left side of the chapel holds a Soul Drop.",
     "step": 1
   },
   {
@@ -415,7 +621,8 @@
     "type": "story",
     "x": 79.89,
     "y": 58.22,
-    "name": "Story 2",
+    "name": "Northeast balcony",
+    "description": "With the chest opened, go back to the northeast balcony.",
     "step": 2
   },
   {
@@ -423,21 +630,24 @@
     "type": "safeRoom",
     "x": 27.51,
     "y": 36.13,
-    "name": "Safe Room"
+    "name": "Safe Room 4",
+    "description": "Safe room #4 of the Palace: save your game and quick travel between safe rooms."
   },
   {
     "area": "east-building-annex",
     "type": "safeRoom",
     "x": 31.85,
     "y": 84.03,
-    "name": "Safe Room"
+    "name": "Safe Room 5",
+    "description": "Safe room #5 of the Palace: save your game and quick travel between safe rooms."
   },
   {
     "area": "east-building-annex",
     "type": "willSeed",
     "x": 49.54,
     "y": 30.25,
-    "name": "Red Will Seed",
+    "name": "Red Lust Seed",
+    "description": "Behind the vine-covered door you reach with the grappling hook (goat head) in the East Building Annex.",
     "reward": "Crystal of Lust (with all 3 seeds)",
     "seedColor": "red",
     "image": "kamoshida/red-will-seed.jpg"
@@ -447,28 +657,35 @@
     "type": "chest",
     "x": 82.42,
     "y": 37.31,
-    "name": "Treasure Chest 1"
+    "name": "Knight's Dirty Armor",
+    "description": "In the room on the left, before the goat head.",
+    "reward": "Knight's Dirty Armor"
   },
   {
     "area": "east-building-annex",
     "type": "chest",
     "x": 58.9,
     "y": 91.6,
-    "name": "Treasure Chest 2"
+    "name": "Baptismal Water",
+    "description": "On the southeast balcony.",
+    "reward": "Baptismal Water"
   },
   {
     "area": "east-building-annex",
     "type": "chest",
     "x": 79.34,
     "y": 91.93,
-    "name": "Treasure Chest 3"
+    "name": "Shakti Capsule",
+    "description": "On the southeast balcony.",
+    "reward": "Shakti Capsule"
   },
   {
     "area": "east-building-annex",
     "type": "story",
     "x": 79.22,
     "y": 58.82,
-    "name": "Story 1",
+    "name": "Southeast balcony",
+    "description": "From the northeast balcony, cross the beams to the south and drop to the southeast balcony. Two chests here: Baptismal Water and a Shakti Capsule.",
     "step": 1
   },
   {
@@ -476,7 +693,8 @@
     "type": "story",
     "x": 59.47,
     "y": 43.53,
-    "name": "Story 2",
+    "name": "Another goat head",
+    "description": "Go through the door at the northwest balcony and follow the corridor: the party spots another goat head. The room on the left before it has a chest with Knight's Dirty Armor.",
     "step": 2
   },
   {
@@ -484,7 +702,8 @@
     "type": "story",
     "x": 69.75,
     "y": 30.42,
-    "name": "Story 3",
+    "name": "Red Will Seed",
+    "description": "Grapple across on the goat head and go through the vine-covered door for the Red Lust Seed (Will Seed tutorial).",
     "step": 3
   },
   {
@@ -492,150 +711,25 @@
     "type": "story",
     "x": 89.04,
     "y": 15.97,
-    "name": "Story 4",
+    "name": "Up the tower",
+    "description": "Grapple back to the corridor, take the path on the left and climb the stairs up the tower.",
     "step": 4
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "safeRoom",
-    "x": 25.53,
-    "y": 38.69,
-    "name": "Safe Room"
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "safeRoom",
-    "x": 29.81,
-    "y": 85.08,
-    "name": "Safe Room"
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "chest",
-    "x": 20.13,
-    "y": 83.61,
-    "name": "Treasure Chest 1"
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "chest",
-    "x": 57.14,
-    "y": 61.15,
-    "name": "Treasure Chest 2"
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 34.31,
-    "y": 16.56,
-    "name": "Story 1",
-    "step": 1
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 30.26,
-    "y": 45.41,
-    "name": "Story 2",
-    "step": 2
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 15.19,
-    "y": 38.69,
-    "name": "Story 3",
-    "step": 3
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 10.01,
-    "y": 45.41,
-    "name": "Story 4",
-    "step": 4
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 29.92,
-    "y": 75.41,
-    "name": "Story 5",
-    "step": 5
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 20.7,
-    "y": 29.02,
-    "name": "Story 6",
-    "step": 6
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 27,
-    "y": 62.79,
-    "name": "Story 6.1",
-    "step": 6,
-    "subStep": 1
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 28.46,
-    "y": 56.56,
-    "name": "Story 6.2",
-    "step": 6,
-    "subStep": 2
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 31.61,
-    "y": 62.79,
-    "name": "Story 6.3",
-    "step": 6,
-    "subStep": 3
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 25.76,
-    "y": 69.02,
-    "name": "Story 6.4",
-    "step": 6,
-    "subStep": 4
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 36,
-    "y": 54.43,
-    "name": "Story 7",
-    "step": 7
-  },
-  {
-    "area": "east-building-third-floor",
-    "type": "story",
-    "x": 67.49,
-    "y": 87.7,
-    "name": "Story 8",
-    "step": 8
   },
   {
     "area": "old-castle-roof",
     "type": "grapple",
     "x": 75.92,
     "y": 59.43,
-    "name": "Grappling Point"
+    "name": "Grappling Point",
+    "description": "Grapple here to cross to the tower bridge."
   },
   {
     "area": "old-castle-roof",
     "type": "story",
     "x": 84.38,
     "y": 56.8,
-    "name": "Story 1",
+    "name": "Climbing the roof",
+    "description": "Ambush the enemies on your way up. Grapple onto the roofed structure in the middle, then onto the flag to land on the tower bridge.",
     "step": 1
   },
   {
@@ -643,7 +737,8 @@
     "type": "story",
     "x": 44.47,
     "y": 71.6,
-    "name": "Story 2",
+    "name": "Into the tower",
+    "description": "From the bridge, climb the wall to the opening in the castle tower, go inside and crawl through the vent to a platform.",
     "step": 2
   },
   {
@@ -651,7 +746,8 @@
     "type": "story",
     "x": 18.76,
     "y": 43.81,
-    "name": "Story 3",
+    "name": "Look up",
+    "description": "Look up and grapple to the next platform (see Castle Tower · Second Open Window).",
     "step": 3
   },
   {
@@ -659,7 +755,8 @@
     "type": "story",
     "x": 70.82,
     "y": 69.78,
-    "name": "Story 4",
+    "name": "Loot",
+    "description": "After getting the Will Seed, explore the rest of this area for treasures you can sell in the real world.",
     "step": 4
   },
   {
@@ -667,83 +764,17 @@
     "type": "story",
     "x": 13.77,
     "y": 65.52,
-    "name": "Story 5",
+    "name": "Out the door",
+    "description": "Go back to the first open window, climb down the platforms and leave through the door.",
     "step": 5
-  },
-  {
-    "area": "castle-tower-low-level",
-    "type": "safeRoom",
-    "x": 47.24,
-    "y": 15.08,
-    "name": "Safe Room"
-  },
-  {
-    "area": "castle-tower-low-level",
-    "type": "chest",
-    "x": 45.49,
-    "y": 54.1,
-    "name": "Treasure Chest 1"
-  },
-  {
-    "area": "castle-tower-low-level",
-    "type": "story",
-    "x": 64.39,
-    "y": 41.02,
-    "name": "Story 1",
-    "step": 1
-  },
-  {
-    "area": "castle-tower-low-level",
-    "type": "story",
-    "x": 57.99,
-    "y": 56.1,
-    "name": "Story 2",
-    "step": 2
-  },
-  {
-    "area": "castle-tower-low-level",
-    "type": "story",
-    "x": 26.89,
-    "y": 45.45,
-    "name": "Story 3",
-    "step": 3
-  },
-  {
-    "area": "castle-tower-middle-level",
-    "type": "chest",
-    "x": 24.13,
-    "y": 71.58,
-    "name": "Treasure Chest 1"
-  },
-  {
-    "area": "castle-tower-middle-level",
-    "type": "chest",
-    "x": 52.05,
-    "y": 66.39,
-    "name": "Treasure Chest 2"
-  },
-  {
-    "area": "castle-tower-middle-level",
-    "type": "story",
-    "x": 74.61,
-    "y": 73.77,
-    "name": "Story 1",
-    "step": 1
-  },
-  {
-    "area": "castle-tower-middle-level",
-    "type": "story",
-    "x": 18.93,
-    "y": 73.77,
-    "name": "Story 2",
-    "step": 2
   },
   {
     "area": "castle-tower-second-open-window",
     "type": "willSeed",
     "x": 46.02,
     "y": 72.04,
-    "name": "Green Will Seed",
+    "name": "Green Lust Seed",
+    "description": "Behind the vine-covered door at the second open window of the castle tower.",
     "reward": "Crystal of Lust (with all 3 seeds)",
     "seedColor": "green",
     "image": "kamoshida/green-will-seed.jpg"
@@ -753,7 +784,8 @@
     "type": "story",
     "x": 64.02,
     "y": 24.61,
-    "name": "Story 1",
+    "name": "Second window",
+    "description": "Keep grappling up until you reach another opening in the tower, and go in.",
     "step": 1
   },
   {
@@ -761,122 +793,52 @@
     "type": "story",
     "x": 58.71,
     "y": 66.44,
-    "name": "Story 2",
+    "name": "Green Will Seed",
+    "description": "Follow the path and go through the vine-covered door for the Green Lust Seed. Then go back through the vent.",
     "step": 2
   },
   {
-    "area": "castle-tower-upper-level",
-    "type": "chest",
-    "x": 60.81,
-    "y": 16.35,
-    "name": "Treasure Chest 1"
-  },
-  {
-    "area": "castle-tower-upper-level",
-    "type": "chest",
-    "x": 42.6,
-    "y": 49.27,
-    "name": "Treasure Chest 2"
-  },
-  {
-    "area": "castle-tower-upper-level",
-    "type": "chest",
-    "x": 74.63,
-    "y": 50.52,
-    "name": "Treasure Chest 3"
-  },
-  {
-    "area": "castle-tower-upper-level",
-    "type": "story",
-    "x": 51.54,
-    "y": 72.96,
-    "name": "Story 1",
-    "step": 1
-  },
-  {
-    "area": "castle-tower-upper-level",
-    "type": "story",
-    "x": 58.86,
-    "y": 73.79,
-    "name": "Story 2",
-    "step": 2
-  },
-  {
-    "area": "castle-tower-upper-level",
-    "type": "story",
-    "x": 71.22,
-    "y": 69.81,
-    "name": "Story 3",
-    "step": 3
-  },
-  {
-    "area": "castle-tower-upper-level",
-    "type": "story",
-    "x": 20.49,
-    "y": 53.04,
-    "name": "Story 4",
-    "step": 4
-  },
-  {
-    "area": "castle-tower-upper-level",
-    "type": "story",
-    "x": 34.96,
-    "y": 14.26,
-    "name": "Story 5",
-    "step": 5
-  },
-  {
-    "area": "castle-tower-throne-room",
+    "area": "castle-tower-low-level",
     "type": "safeRoom",
-    "x": 74.38,
-    "y": 74.07,
-    "name": "Safe Room"
+    "x": 47.24,
+    "y": 15.08,
+    "name": "Safe Room 6",
+    "description": "Safe room #6 of the Palace: save your game and quick travel between safe rooms."
   },
   {
-    "area": "castle-tower-throne-room",
-    "type": "treasure",
-    "x": 46.55,
-    "y": 13.58,
-    "name": "The Treasure",
-    "requires": "Calling Card",
-    "image": "kamoshida/treasure.jpg"
-  },
-  {
-    "area": "castle-tower-throne-room",
+    "area": "castle-tower-low-level",
     "type": "chest",
-    "x": 56.4,
-    "y": 83.13,
-    "name": "Treasure Chest 1"
+    "x": 45.49,
+    "y": 54.1,
+    "name": "Balm of Life",
+    "description": "West of the lift.",
+    "reward": "Balm of Life"
   },
   {
-    "area": "castle-tower-throne-room",
-    "type": "chest",
-    "x": 62.56,
-    "y": 87.24,
-    "name": "Treasure Chest 2"
-  },
-  {
-    "area": "castle-tower-throne-room",
+    "area": "castle-tower-low-level",
     "type": "story",
-    "x": 14.04,
-    "y": 69.75,
-    "name": "Story 1",
+    "x": 64.39,
+    "y": 41.02,
+    "name": "Angels",
+    "description": "Out of the door, head south. Angel (Gun, Curse) and Archangel (Electric, Curse) show up here.",
     "step": 1
   },
   {
-    "area": "castle-tower-throne-room",
+    "area": "castle-tower-low-level",
     "type": "story",
-    "x": 70.94,
-    "y": 79.22,
-    "name": "Story 2",
+    "x": 57.99,
+    "y": 56.1,
+    "name": "The lift",
+    "description": "The room here has a lift. Ride it down to the secret passage.",
     "step": 2
   },
   {
-    "area": "castle-tower-throne-room",
+    "area": "castle-tower-low-level",
     "type": "story",
-    "x": 45.32,
-    "y": 24.07,
-    "name": "Story 3",
+    "x": 26.89,
+    "y": 45.45,
+    "name": "Sixth Safe Room",
+    "description": "From the lift, go west to a chest with Balm of Life. Go north, beat the strong enemy and pull the switch in the lower right. Save in the sixth safe room and take the stairs up to the middle level.",
     "step": 3
   },
   {
@@ -884,7 +846,8 @@
     "type": "story",
     "x": 58.02,
     "y": 20.58,
-    "name": "Story 1",
+    "name": "Broken lift",
+    "description": "There is another lift on the west side, but it does not work yet.",
     "step": 1
   },
   {
@@ -892,7 +855,8 @@
     "type": "story",
     "x": 49.38,
     "y": 82.1,
-    "name": "Story 2",
+    "name": "Portrait shortcut",
+    "description": "To the south, the big Kamoshida portrait is a shortcut to the central hall 2F. Downstairs, two chests are hidden in opposite corners (a Revival Bead and a Bead). Then go upstairs on the left and pull the switch that powers the west lift.",
     "step": 2
   },
   {
@@ -900,7 +864,8 @@
     "type": "story",
     "x": 39.81,
     "y": 20.16,
-    "name": "Story 3",
+    "name": "Going down",
+    "description": "Go back through the portrait and ride the west lift further down (see Central Tower · Secret Basement).",
     "step": 3
   },
   {
@@ -908,7 +873,8 @@
     "type": "willSeed",
     "x": 32.4,
     "y": 24.27,
-    "name": "Blue Will Seed",
+    "name": "Blue Lust Seed",
+    "description": "Behind the vine-covered door in the secret basement, after the Mara mini-boss. Collecting all three forms the Crystal of Lust.",
     "reward": "Crystal of Lust (with all 3 seeds)",
     "seedColor": "blue",
     "image": "kamoshida/blue-will-seed.jpg"
@@ -918,7 +884,8 @@
     "type": "story",
     "x": 76.18,
     "y": 47.33,
-    "name": "Story 1",
+    "name": "Wooden walkway",
+    "description": "Follow the round wooden walkway and fight the enemy in front of the door.",
     "step": 1
   },
   {
@@ -926,7 +893,180 @@
     "type": "story",
     "x": 36.25,
     "y": 37.62,
-    "name": "Story 2",
+    "name": "Blue Will Seed",
+    "description": "Beat the Mara mini-boss with status ailments and technical hits. Go through the vine-covered door for the Blue Lust Seed; the three seeds merge into the Crystal of Lust. Ride the lifts back up to the middle level.",
     "step": 2
+  },
+  {
+    "area": "castle-tower-middle-level",
+    "type": "chest",
+    "x": 24.13,
+    "y": 71.58,
+    "name": "Relax Gel",
+    "description": "One level up, to the south.",
+    "reward": "Relax Gel"
+  },
+  {
+    "area": "castle-tower-middle-level",
+    "type": "chest",
+    "x": 52.05,
+    "y": 66.39,
+    "name": "Sleeping Small Bottle",
+    "description": "West of the entrance.",
+    "reward": "Sleeping Small Bottle"
+  },
+  {
+    "area": "castle-tower-middle-level",
+    "type": "story",
+    "x": 74.61,
+    "y": 73.77,
+    "name": "Two chests",
+    "description": "West of the entrance is a chest with a Sleeping Small Bottle. Go north to the next level, then south to a second chest with Relax Gel.",
+    "step": 1
+  },
+  {
+    "area": "castle-tower-middle-level",
+    "type": "story",
+    "x": 18.93,
+    "y": 73.77,
+    "name": "To the upper level",
+    "description": "Take the stairs and the door to the castle tower upper level.",
+    "step": 2
+  },
+  {
+    "area": "castle-tower-upper-level",
+    "type": "chest",
+    "x": 60.81,
+    "y": 16.35,
+    "name": "Jade Source Ball",
+    "description": "At the far end of the bridge (after stopping the blades).",
+    "reward": "Jade Source Ball"
+  },
+  {
+    "area": "castle-tower-upper-level",
+    "type": "chest",
+    "x": 42.6,
+    "y": 49.27,
+    "name": "Breath Ring",
+    "description": "On the platform on the left after crossing the bridge.",
+    "reward": "Breath Ring"
+  },
+  {
+    "area": "castle-tower-upper-level",
+    "type": "chest",
+    "x": 74.63,
+    "y": 50.52,
+    "name": "Baptismal Water",
+    "description": "Further along the path after the bridge.",
+    "reward": "Baptismal Water"
+  },
+  {
+    "area": "castle-tower-upper-level",
+    "type": "story",
+    "x": 51.54,
+    "y": 72.96,
+    "name": "Swinging blades",
+    "description": "From the entrance, head to the area with the swinging blades.",
+    "step": 1
+  },
+  {
+    "area": "castle-tower-upper-level",
+    "type": "story",
+    "x": 58.86,
+    "y": 73.79,
+    "name": "Kamoshida's statue",
+    "description": "Examine Kamoshida's statue for a cutscene.",
+    "step": 2
+  },
+  {
+    "area": "castle-tower-upper-level",
+    "type": "story",
+    "x": 71.22,
+    "y": 69.81,
+    "name": "Out of reach",
+    "description": "There is a chest in the area on the right, but you cannot reach it yet.",
+    "step": 3
+  },
+  {
+    "area": "castle-tower-upper-level",
+    "type": "story",
+    "x": 20.49,
+    "y": 53.04,
+    "name": "The two eyes",
+    "description": "Hunt down the two gold-armored guards (Eligor, weak to Electric). The one on the middle level drops the Randy Right Eye. For the other, save in the sixth safe room, climb the statue in the southwest and grapple to the ledge: it drops the Lustful Left Eye. Put both eyes in the statue to stop the blades, then collect three chests: Breath Ring, Jade Source Ball and Baptismal Water.",
+    "step": 4
+  },
+  {
+    "area": "castle-tower-upper-level",
+    "type": "story",
+    "x": 34.96,
+    "y": 14.26,
+    "name": "To the throne room",
+    "description": "With all the treasure collected, head to the castle tower throne room.",
+    "step": 5
+  },
+  {
+    "area": "castle-tower-throne-room",
+    "type": "safeRoom",
+    "x": 74.38,
+    "y": 74.07,
+    "name": "Safe Room 7",
+    "description": "Safe room #7 of the Palace: save your game and quick travel between safe rooms."
+  },
+  {
+    "area": "castle-tower-throne-room",
+    "type": "treasure",
+    "x": 46.55,
+    "y": 13.58,
+    "name": "The Treasure",
+    "description": "Kamoshida's Treasure: his crown. Reach it through the opening left of the throne room door, then send the calling card (4/21) to make it appear.",
+    "requires": "Calling Card",
+    "image": "kamoshida/treasure.jpg"
+  },
+  {
+    "area": "castle-tower-throne-room",
+    "type": "chest",
+    "x": 56.4,
+    "y": 83.13,
+    "name": "Ground Ball",
+    "description": "Along the path to the throne room.",
+    "reward": "Ground Ball"
+  },
+  {
+    "area": "castle-tower-throne-room",
+    "type": "chest",
+    "x": 62.56,
+    "y": 87.24,
+    "name": "Physical Ointment",
+    "description": "On the crates above the bookshelf by the throne room door.",
+    "reward": "Physical Ointment",
+    "requires": "Grappling Hook"
+  },
+  {
+    "area": "castle-tower-throne-room",
+    "type": "story",
+    "x": 14.04,
+    "y": 69.75,
+    "name": "Ground Ball",
+    "description": "Follow the path and open the chest: a Ground Ball.",
+    "step": 1
+  },
+  {
+    "area": "castle-tower-throne-room",
+    "type": "story",
+    "x": 70.94,
+    "y": 79.22,
+    "name": "Seventh Safe Room",
+    "description": "Save in the seventh safe room. In front of the throne room door, climb the bookshelf and grapple to the crates for a chest with Physical Ointment. Then climb the statue to the left of the door.",
+    "step": 2
+  },
+  {
+    "area": "castle-tower-throne-room",
+    "type": "story",
+    "x": 45.32,
+    "y": 24.07,
+    "name": "The Treasure",
+    "description": "Jump into the opening on the left, go through the white door and the door behind it to find Kamoshida's Treasure. After the cutscene, quick travel to the castle gate and leave. Send the calling card on 4/21 and fight Shadow Kamoshida on 4/22.",
+    "step": 3
   }
 ]

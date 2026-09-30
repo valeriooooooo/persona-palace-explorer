@@ -2,51 +2,123 @@
   {
     "slug": "agathion",
     "name": "Agathion",
-    "arcana": "Chariot"
+    "arcana": "Chariot",
+    "level": 3,
+    "personality": "Timid",
+    "drops": "Cork Bark",
+    "weak": "Wind"
+  },
+  {
+    "slug": "angel",
+    "name": "Angel",
+    "arcana": "Justice",
+    "level": 9,
+    "personality": "Upbeat",
+    "drops": "Tin Clasp",
+    "weak": "Gun, Curse"
+  },
+  {
+    "slug": "archangel",
+    "name": "Archangel",
+    "arcana": "Justice",
+    "level": 14,
+    "personality": "Irritable",
+    "drops": "Cork Bark",
+    "weak": "Electric, Curse"
   },
   {
     "slug": "berith",
     "name": "Berith",
-    "arcana": "Hierophant"
+    "arcana": "Hierophant",
+    "level": 9,
+    "personality": "Irritable",
+    "drops": "Knight's Soothing Armor",
+    "weak": "Ice"
   },
   {
     "slug": "bicorn",
     "name": "Bicorn",
-    "arcana": "Hermit"
+    "arcana": "Hermit",
+    "level": 4,
+    "personality": "Gloomy",
+    "drops": "Plant Balm",
+    "weak": "Electric"
+  },
+  {
+    "slug": "cait-sith",
+    "name": "Cait Sith",
+    "arcana": "Magician",
+    "level": 5,
+    "personality": "Upbeat",
+    "weak": "Wind"
   },
   {
     "slug": "eligor",
     "name": "Eligor",
-    "arcana": "Emperor"
+    "arcana": "Emperor",
+    "weak": "Electric"
   },
   {
     "slug": "incubus",
     "name": "Incubus",
-    "arcana": "Devil"
+    "arcana": "Devil",
+    "level": 5,
+    "personality": "Timid",
+    "drops": "Tin Clasp",
+    "weak": "Fire, Bless"
   },
   {
     "slug": "jack-o-lantern",
     "name": "Jack-o'-Lantern",
-    "arcana": "Magician"
+    "arcana": "Magician",
+    "level": 2,
+    "personality": "Gloomy",
+    "drops": "Bundle of Raw Silk",
+    "weak": "Gun, Ice, Wind"
   },
   {
     "slug": "kelpie",
     "name": "Kelpie",
-    "arcana": "Strength"
+    "arcana": "Strength",
+    "level": 6,
+    "personality": "Upbeat",
+    "drops": "Tin Clasp",
+    "weak": "Electric"
   },
   {
     "slug": "mandrake",
     "name": "Mandrake",
-    "arcana": "Death"
+    "arcana": "Death",
+    "level": 3,
+    "personality": "Upbeat",
+    "drops": "Bundle of Raw Silk",
+    "weak": "Fire"
   },
   {
     "slug": "pixie",
     "name": "Pixie",
-    "arcana": "Lovers"
+    "arcana": "Lovers",
+    "level": 2,
+    "personality": "Timid",
+    "drops": "Plant Balm",
+    "weak": "Gun, Ice, Curse"
   },
   {
     "slug": "silky",
     "name": "Silky",
-    "arcana": "Priestess"
+    "arcana": "Priestess",
+    "level": 6,
+    "personality": "Gloomy",
+    "drops": "Bundle of Raw Silk",
+    "weak": "Fire, Electric"
+  },
+  {
+    "slug": "succubus",
+    "name": "Succubus",
+    "arcana": "Moon",
+    "level": 7,
+    "personality": "Irritable",
+    "drops": "Plant Balm",
+    "weak": "Wind, Bless"
   }
 ]

@@ -1,15 +1,15 @@
 [
   {
-    "enemy": "pixie"
-  },
-  {
     "enemy": "jack-o-lantern"
   },
   {
-    "enemy": "agathion"
+    "enemy": "pixie"
   },
   {
     "enemy": "mandrake"
+  },
+  {
+    "enemy": "agathion"
   },
   {
     "enemy": "bicorn"
@@ -18,13 +18,25 @@
     "enemy": "incubus"
   },
   {
-    "enemy": "kelpie"
+    "enemy": "cait-sith"
   },
   {
     "enemy": "silky"
   },
   {
+    "enemy": "kelpie"
+  },
+  {
+    "enemy": "succubus"
+  },
+  {
     "enemy": "berith"
+  },
+  {
+    "enemy": "angel"
+  },
+  {
+    "enemy": "archangel"
   },
   {
     "enemy": "eligor"

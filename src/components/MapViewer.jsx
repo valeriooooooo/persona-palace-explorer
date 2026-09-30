@@ -237,6 +237,7 @@ export default function MapViewer({
       <div className="map-title">
         <span className="map-title__palace">{palaceName}</span>
         <span className="map-title__floor">{area.name}</span>
+        {area.notes && <span className="map-title__note">{area.notes}</span>}
         {group?.areas.length > 1 && (
           <div className="visit-toggle" role="group" aria-label="Visit">
             {group.areas.map((a) => (

@@ -1,10 +1,71 @@
 [
   {
+    "slug": "guard-belphegor",
+    "name": "Guard",
+    "persona": "Belphegor",
+    "hp": 400,
+    "skills": "Magaru",
+    "weak": "Fire",
+    "description": "Fought right after Ann awakens to Carmen. Use Fire.",
+    "isRuler": false,
+    "area": "west-building-first-floor"
+  },
+  {
+    "slug": "heavenly-punisher",
+    "name": "Heavenly Punisher",
+    "persona": "Archangel",
+    "hp": 650,
+    "skills": "Slash, Charge",
+    "weak": "None",
+    "description": "Chapel mini-boss. Guard while it is buffed, then debuff it and use physical attacks while it charges up.",
+    "isRuler": false,
+    "area": "east-building-third-floor"
+  },
+  {
+    "slug": "palace-shadow-guard",
+    "name": "Palace Shadow Guard",
+    "persona": "Eligor",
+    "hp": 180,
+    "skills": "Slash",
+    "weak": "None",
+    "description": "Scripted fight in the central hall on the 2nd infiltration (with two Bicorns). You cannot win the first round; Ryuji awakens Captain Kidd, and then you beat Eligor with steady healing.",
+    "isRuler": false
+  },
+  {
     "slug": "shadow-kamoshida",
     "name": "Shadow Kamoshida",
-    "description": "The king of the castle. Once the calling card is sent, confront him in the Throne Room to steal his distorted desires.",
+    "persona": "Asmodeus",
+    "level": 11,
+    "hp": 2500,
+    "sp": 1500,
+    "skills": "Volleyball Assault, Golden Knife, Tongue Whip, Lick, Libido Boost, Lustful Slurp, Gold Medal Spike",
+    "weak": "None",
+    "rewards": "8,000 yen, 450 EXP",
+    "description": "Hit Kamoshida first. Once he drinks from his trophy to heal, destroy the Trophy of Obsession (Lv 10, 900 HP) so he cannot heal again, and save SP for healing after Volleyball Assault. Guard when he calls Mishima for Gold Medal Spike. Later he calls Cognitive Shiho (500 HP, weak to all elements): take her out before the next spike. Let Ryuji or Morgana steal his crown, then go all out.",
     "image": "kamoshida/boss.jpg",
     "isRuler": true,
     "area": "castle-tower-throne-room"
+  },
+  {
+    "slug": "torn-king-of-desire",
+    "name": "Torn King of Desire",
+    "persona": "Mara",
+    "hp": 400,
+    "skills": "Assault Dive, Dia",
+    "weak": "None",
+    "description": "Guards the Blue Lust Seed. Inflict status ailments and deal technical damage.",
+    "isRuler": false,
+    "area": "central-tower--secret-basement"
+  },
+  {
+    "slug": "war-hungry-horseman",
+    "name": "War-Hungry Horseman",
+    "persona": "Eligor",
+    "hp": 285,
+    "weak": "Electric",
+    "rewards": "Left Eye of Lust, Right Eye of Lust",
+    "description": "The two gold-armored guards in the castle tower. Each drops one of the eyes for Kamoshida's statue.",
+    "isRuler": false,
+    "area": "castle-tower-upper-level"
   }
 ]

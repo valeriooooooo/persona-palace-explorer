@@ -68,7 +68,8 @@ dus altijd eerst exporteren als je in Studio iets hebt veranderd).
 - `server/` – de API (`/api/palaces` en `/api/palaces/<slug>`)
 - `src/` – de website (React)
 - `public/images/` – afbeeldingen en kaarten (zie `public/images/README.md`)
-- `content/kamoshida-invullen.md` – invulbestand voor het verhaal, kisten, enemies, …
+- `content/kamoshida-invullen.md` – wat er voor Kamoshida nog ontbreekt of gecheckt moet worden
+- `content/*.pdf` – guides als PDF (alleen lokaal, staan niet op GitHub)
 
 ## Een nieuw palace toevoegen
 

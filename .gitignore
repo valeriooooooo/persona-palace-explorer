@@ -26,3 +26,6 @@ dist-ssr
 /server/generated
 /prisma/*.db
 /prisma/*.db-journal
+
+# Guide PDFs (someone else's text, keep local only)
+/content/*.pdf

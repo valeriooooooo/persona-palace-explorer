@@ -4,141 +4,161 @@
     "order": 1,
     "name": "Underground Prison 2F",
     "visit": 1,
-    "mapImage": "kamoshida/maps/underground-prison-second-floor.jpg"
+    "mapImage": "kamoshida/maps/underground-prison-second-floor.jpg",
+    "notes": "1st infiltration (4/11)"
   },
   {
     "slug": "underground-prison-first-floor",
     "order": 2,
     "name": "Underground Prison 1F",
     "visit": 1,
-    "mapImage": "kamoshida/maps/underground-prison-first-floor.jpg"
-  },
-  {
-    "slug": "west-building-first-floor",
-    "order": 3,
-    "name": "West Building 1F",
-    "visit": 1,
-    "mapImage": "kamoshida/maps/west-building-first-floor.jpg"
-  },
-  {
-    "slug": "west-building-first-floor-2",
-    "order": 4,
-    "name": "West Building 1F",
-    "visit": 2,
-    "mapImage": "kamoshida/maps/west-building-first-floor-2.jpg"
-  },
-  {
-    "slug": "underground-prison-first-floor-2",
-    "order": 5,
-    "name": "Underground Prison 1F",
-    "visit": 2,
-    "mapImage": "kamoshida/maps/underground-prison-first-floor-2.jpg"
-  },
-  {
-    "slug": "training-hall-passage",
-    "order": 6,
-    "name": "Training Hall Passage",
-    "visit": 1,
-    "mapImage": "kamoshida/maps/training-hall-passage.jpg"
-  },
-  {
-    "slug": "training-hall-of-love",
-    "order": 7,
-    "name": "Training Hall of Love",
-    "visit": 1,
-    "mapImage": "kamoshida/maps/training-hall-of-love.jpg"
-  },
-  {
-    "slug": "west-building--central-hall--east-building-second-floor",
-    "order": 8,
-    "name": "West Building · Central Hall · East Building 2F",
-    "areaNames": "West Building, Central Hall, East Building 2F",
-    "visit": 1,
-    "mapImage": "kamoshida/maps/west-building central-hall east-building-second-floor.jpg"
+    "mapImage": "kamoshida/maps/underground-prison-first-floor.jpg",
+    "notes": "1st infiltration (4/11)"
   },
   {
     "slug": "central-hall",
-    "order": 9,
+    "order": 3,
     "name": "Central Hall",
     "visit": 1,
-    "mapImage": "kamoshida/maps/central-hall.jpg"
+    "mapImage": "kamoshida/maps/central-hall.jpg",
+    "notes": "2nd infiltration (4/12)"
   },
   {
-    "slug": "east-building-chapel",
-    "order": 10,
-    "name": "East Building Chapel",
-    "visit": 1,
-    "mapImage": "kamoshida/maps/east-building-chapel.jpg"
+    "slug": "underground-prison-first-floor-2",
+    "order": 4,
+    "name": "Underground Prison 1F",
+    "visit": 2,
+    "mapImage": "kamoshida/maps/underground-prison-first-floor-2.jpg",
+    "notes": "2nd infiltration (4/12)"
   },
   {
-    "slug": "east-building-annex",
-    "order": 11,
-    "name": "East Building Annex",
+    "slug": "training-hall-passage",
+    "order": 5,
+    "name": "Training Hall Passage",
     "visit": 1,
-    "mapImage": "kamoshida/maps/east-building-annex.jpg"
+    "mapImage": "kamoshida/maps/training-hall-passage.jpg",
+    "notes": "2nd infiltration (4/12)"
+  },
+  {
+    "slug": "training-hall-of-love",
+    "order": 6,
+    "name": "Training Hall of Love",
+    "visit": 1,
+    "mapImage": "kamoshida/maps/training-hall-of-love.jpg",
+    "notes": "2nd infiltration (4/12)"
+  },
+  {
+    "slug": "west-building-first-floor",
+    "order": 7,
+    "name": "West Building 1F",
+    "visit": 1,
+    "mapImage": "kamoshida/maps/west-building-first-floor.jpg",
+    "notes": "3rd infiltration (4/15)"
+  },
+  {
+    "slug": "west-building-first-floor-2",
+    "order": 8,
+    "name": "West Building 1F",
+    "visit": 2,
+    "mapImage": "kamoshida/maps/west-building-first-floor-2.jpg",
+    "notes": "4th infiltration (4/20)"
+  },
+  {
+    "slug": "west-building--central-hall--east-building-second-floor",
+    "order": 9,
+    "name": "West Building · Central Hall · East Building 2F",
+    "areaNames": "West Building, Central Hall, East Building 2F",
+    "visit": 1,
+    "mapImage": "kamoshida/maps/west-building central-hall east-building-second-floor.jpg",
+    "notes": "4th infiltration (4/20)"
   },
   {
     "slug": "east-building-third-floor",
-    "order": 12,
+    "order": 10,
     "name": "East Building 3F",
     "visit": 1,
-    "mapImage": "kamoshida/maps/east-building-third-floor.jpg"
+    "mapImage": "kamoshida/maps/east-building-third-floor.jpg",
+    "notes": "4th infiltration (4/20)"
+  },
+  {
+    "slug": "east-building-chapel",
+    "order": 11,
+    "name": "East Building Chapel",
+    "visit": 1,
+    "mapImage": "kamoshida/maps/east-building-chapel.jpg",
+    "notes": "4th infiltration (4/20)"
+  },
+  {
+    "slug": "east-building-annex",
+    "order": 12,
+    "name": "East Building Annex",
+    "visit": 1,
+    "mapImage": "kamoshida/maps/east-building-annex.jpg",
+    "notes": "4th infiltration (4/20)"
   },
   {
     "slug": "old-castle-roof",
     "order": 13,
     "name": "Old Castle Roof",
     "visit": 1,
-    "mapImage": "kamoshida/maps/old-castle-roof.jpg"
-  },
-  {
-    "slug": "castle-tower-low-level",
-    "order": 14,
-    "name": "Castle Tower · Low Level",
-    "visit": 1,
-    "mapImage": "kamoshida/maps/castle-tower-low-level.jpg"
-  },
-  {
-    "slug": "castle-tower-middle-level",
-    "order": 15,
-    "name": "Castle Tower · Middle Level",
-    "visit": 1,
-    "mapImage": "kamoshida/maps/castle-tower-middle-level.jpg"
+    "mapImage": "kamoshida/maps/old-castle-roof.jpg",
+    "notes": "4th infiltration (4/20)"
   },
   {
     "slug": "castle-tower-second-open-window",
-    "order": 16,
+    "order": 14,
     "name": "Castle Tower · Second Open Window",
     "visit": 1,
-    "mapImage": "kamoshida/maps/castle-tower-second-open-window.jpg"
+    "mapImage": "kamoshida/maps/castle-tower-second-open-window.jpg",
+    "notes": "4th infiltration (4/20)"
   },
   {
-    "slug": "castle-tower-upper-level",
-    "order": 17,
-    "name": "Castle Tower · Upper Level",
+    "slug": "castle-tower-low-level",
+    "order": 15,
+    "name": "Castle Tower · Low Level",
     "visit": 1,
-    "mapImage": "kamoshida/maps/castle-tower-upper-level.jpg"
-  },
-  {
-    "slug": "castle-tower-throne-room",
-    "order": 18,
-    "name": "Castle Tower · Throne Room",
-    "visit": 1,
-    "mapImage": "kamoshida/maps/castle-tower-throne-room.jpg"
+    "mapImage": "kamoshida/maps/castle-tower-low-level.jpg",
+    "notes": "4th infiltration (4/20)"
   },
   {
     "slug": "castle-tower-secret-passage--central-hall",
-    "order": 19,
+    "order": 16,
     "name": "Castle Tower Secret Passage · Central Hall",
     "areaNames": "Castle Tower Secret Passage, Central Hall",
     "visit": 1,
-    "mapImage": "kamoshida/maps/castle-tower-secret-passage central-hall.jpg"
+    "mapImage": "kamoshida/maps/castle-tower-secret-passage central-hall.jpg",
+    "notes": "4th infiltration (4/20)"
   },
   {
     "slug": "central-tower--secret-basement",
-    "order": 20,
+    "order": 17,
     "name": "Central Tower · Secret Basement",
     "visit": 1,
-    "mapImage": "kamoshida/maps/central-tower secret-basement.jpg"
+    "mapImage": "kamoshida/maps/central-tower secret-basement.jpg",
+    "notes": "4th infiltration (4/20)"
+  },
+  {
+    "slug": "castle-tower-middle-level",
+    "order": 18,
+    "name": "Castle Tower · Middle Level",
+    "visit": 1,
+    "mapImage": "kamoshida/maps/castle-tower-middle-level.jpg",
+    "notes": "4th infiltration (4/20)"
+  },
+  {
+    "slug": "castle-tower-upper-level",
+    "order": 19,
+    "name": "Castle Tower · Upper Level",
+    "visit": 1,
+    "mapImage": "kamoshida/maps/castle-tower-upper-level.jpg",
+    "notes": "4th infiltration (4/20)"
+  },
+  {
+    "slug": "castle-tower-throne-room",
+    "order": 20,
+    "name": "Castle Tower · Throne Room",
+    "visit": 1,
+    "mapImage": "kamoshida/maps/castle-tower-throne-room.jpg",
+    "notes": "4th infiltration (4/20)"
   }
 ]
