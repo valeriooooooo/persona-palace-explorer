@@ -1,36 +1,6 @@
 [
   {
-    "enemy": "jack-o-lantern"
-  },
-  {
-    "enemy": "pixie"
-  },
-  {
-    "enemy": "mandrake"
-  },
-  {
     "enemy": "agathion"
-  },
-  {
-    "enemy": "bicorn"
-  },
-  {
-    "enemy": "incubus"
-  },
-  {
-    "enemy": "cait-sith"
-  },
-  {
-    "enemy": "silky"
-  },
-  {
-    "enemy": "kelpie"
-  },
-  {
-    "enemy": "succubus"
-  },
-  {
-    "enemy": "berith"
   },
   {
     "enemy": "angel"
@@ -39,6 +9,36 @@
     "enemy": "archangel"
   },
   {
+    "enemy": "berith"
+  },
+  {
+    "enemy": "bicorn"
+  },
+  {
+    "enemy": "cait-sith"
+  },
+  {
     "enemy": "eligor"
+  },
+  {
+    "enemy": "incubus"
+  },
+  {
+    "enemy": "jack-o-lantern"
+  },
+  {
+    "enemy": "kelpie"
+  },
+  {
+    "enemy": "mandrake"
+  },
+  {
+    "enemy": "pixie"
+  },
+  {
+    "enemy": "silky"
+  },
+  {
+    "enemy": "succubus"
   }
 ]
