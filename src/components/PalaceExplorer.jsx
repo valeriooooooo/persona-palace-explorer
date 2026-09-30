@@ -12,18 +12,41 @@ const countBy = (items, key) =>
 
 export default function PalaceExplorer({ palace, animate, onBack }) {
   const rootRef = useRef(null)
-  const [floorId, setFloorId] = useState(palace.startFloor ?? palace.floors[0].id)
+  const [areaSlug, setAreaSlug] = useState(palace.areas[0]?.slug)
   const [active, setActive] = useState(() => new Set(MARKER_TYPE_IDS))
   const [selectedId, setSelectedId] = useState(null)
   const [focusRequest, setFocusRequest] = useState(null)
   const [legendOpen, setLegendOpen] = useState(false)
 
-  const floor = palace.floors.find((f) => f.id === floorId)
-  const selected = palace.markers.find((m) => m.id === selectedId) ?? null
-  const typeCounts = useMemo(() => countBy(palace.markers, 'type'), [palace])
-  const visible = useMemo(() => palace.markers.filter((m) => active.has(m.type)), [palace, active])
-  const floorMarkers = useMemo(() => visible.filter((m) => m.floor === floorId), [visible, floorId])
-  const floorCounts = useMemo(() => countBy(visible, 'floor'), [visible])
+  const area = palace.areas.find((a) => a.slug === areaSlug)
+  const allMarkers = useMemo(() => palace.areas.flatMap((a) => a.markers), [palace])
+  const selected = allMarkers.find((m) => m.id === selectedId) ?? null
+  const typeCounts = useMemo(() => countBy(allMarkers, 'type'), [allMarkers])
+  const areaMarkers = useMemo(
+    () => (area ? area.markers.filter((m) => active.has(m.type)) : []),
+    [area, active],
+  )
+
+  // The story in walking order: area order, then step, then sub-step.
+  const story = useMemo(() => {
+    const order = Object.fromEntries(palace.areas.map((a) => [a.slug, a.order]))
+    return allMarkers
+      .filter((m) => m.type === 'story')
+      .sort((a, b) => order[a.area] - order[b.area] || a.step - b.step || (a.subStep ?? 0) - (b.subStep ?? 0))
+  }, [palace, allMarkers])
+
+  // Maps of the same place on different visits share one entry in the area list.
+  const areaGroups = useMemo(() => {
+    const groups = []
+    for (const a of palace.areas) {
+      let g = groups.find((x) => x.name === a.name)
+      if (!g) groups.push((g = { key: a.slug, name: a.name, areas: [], storyCount: 0 }))
+      g.areas.push(a)
+      g.storyCount += a.markers.filter((m) => m.type === 'story' && m.subStep == null).length
+    }
+    for (const g of groups) g.areas.sort((x, y) => x.visit - y.visit)
+    return groups
+  }, [palace])
 
   const toggleType = (id) =>
     setActive((prev) => {
@@ -33,16 +56,19 @@ export default function PalaceExplorer({ palace, animate, onBack }) {
       return next
     })
 
-  const changeFloor = (id) => {
-    if (id === floorId) return
-    setFloorId(id)
+  const changeArea = (slug) => {
+    if (slug === areaSlug) return
+    setAreaSlug(slug)
     setSelectedId(null)
   }
 
-  const focusSelected = () => {
-    if (!selected) return
-    setFloorId(selected.floor)
-    setFocusRequest({ id: selected.id, at: Date.now() })
+  // Open a marker on its own map and zoom in on it.
+  const goToMarker = (m) => {
+    if (!m) return
+    setActive((prev) => (prev.has(m.type) ? prev : new Set([...prev, m.type])))
+    setAreaSlug(m.area)
+    setSelectedId(m.id)
+    setFocusRequest({ id: m.id, at: Date.now() })
   }
 
   // Entrance: the title slams in, the panels fly in from the sides.
@@ -77,24 +103,30 @@ export default function PalaceExplorer({ palace, animate, onBack }) {
           onToggle={toggleType}
           onSetAll={(on) => setActive(new Set(on ? MARKER_TYPE_IDS : []))}
         />
-        <MapViewer
-          palaceName={palace.name}
-          floors={palace.floors}
-          floor={floor}
-          markers={floorMarkers}
-          floorCounts={floorCounts}
-          selectedId={selectedId}
-          focusRequest={focusRequest}
-          onSelect={setSelectedId}
-          onFloorChange={changeFloor}
-          onOpenLegend={() => setLegendOpen(true)}
-        />
+        {area ? (
+          <MapViewer
+            palaceName={palace.name}
+            areaGroups={areaGroups}
+            area={area}
+            markers={areaMarkers}
+            selectedId={selectedId}
+            focusRequest={focusRequest}
+            onSelect={setSelectedId}
+            onAreaChange={changeArea}
+            onOpenLegend={() => setLegendOpen(true)}
+          />
+        ) : (
+          <section className="panel map-viewer map-viewer--empty" data-anim="map">
+            <p>No maps in the database yet for this Palace.</p>
+          </section>
+        )}
         <InfoPanel
           palace={palace}
           marker={selected}
-          floorName={palace.floors.find((f) => f.id === selected?.floor)?.name}
+          areas={palace.areas}
+          story={story}
           onClose={() => setSelectedId(null)}
-          onFocus={focusSelected}
+          onGoTo={goToMarker}
         />
       </main>
 

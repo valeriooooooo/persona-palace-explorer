@@ -1,0 +1,10 @@
+[
+  {
+    "slug": "shadow-kamoshida",
+    "name": "Shadow Kamoshida",
+    "description": "The king of the castle. Once the calling card is sent, confront him in the Throne Room to steal his distorted desires.",
+    "image": "kamoshida/boss.jpg",
+    "isRuler": true,
+    "area": "castle-tower-throne-room"
+  }
+]

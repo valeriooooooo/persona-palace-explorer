@@ -13,6 +13,16 @@ const star = (cx, cy, outer, inner, points = 5, rot = -90) => {
 }
 
 export const MARKER_TYPES = {
+  story: {
+    label: 'Story Events',
+    singular: 'Story Event',
+    color: '#ff2a3d',
+    // Calling card with an exclamation mark.
+    icon: [
+      { d: 'M4.5 3.5 19 2l1.5 18.5L6 22z' },
+      { d: 'M11 6.5h3l-.6 8.5h-1.8zm.4 10.2h2.4v2.4h-2.4z', hole: true },
+    ],
+  },
   safeRoom: {
     label: 'Safe Rooms',
     singular: 'Safe Room',
@@ -108,4 +118,4 @@ export const SEED_COLORS = {
 }
 
 // Colour of one marker: its seed colour if it has one, else its category colour.
-export const markerColor = (marker) => SEED_COLORS[marker.seed] ?? MARKER_TYPES[marker.type].color
+export const markerColor = (marker) => SEED_COLORS[marker.seedColor] ?? MARKER_TYPES[marker.type].color

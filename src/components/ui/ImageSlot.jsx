@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { imageUrl } from '../../api'
 
 // Shows /public/images/<src>. Until that file exists, renders a halftone
 // placeholder that names the file to add.
@@ -20,7 +21,7 @@ export default function ImageSlot({ src, alt, className = '', fit = 'cover', pos
   return (
     <div className={`image-slot image-slot--${fit} ${className}`}>
       <img
-        src={`/images/${src}`}
+        src={imageUrl(src)}
         alt={alt}
         style={{ objectFit: fit, objectPosition: position }}
         onError={() => setFailedSrc(src)}

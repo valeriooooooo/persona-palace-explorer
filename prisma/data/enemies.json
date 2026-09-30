@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "agathion",
+    "name": "Agathion",
+    "arcana": "Chariot"
+  },
+  {
+    "slug": "berith",
+    "name": "Berith",
+    "arcana": "Hierophant"
+  },
+  {
+    "slug": "bicorn",
+    "name": "Bicorn",
+    "arcana": "Hermit"
+  },
+  {
+    "slug": "eligor",
+    "name": "Eligor",
+    "arcana": "Emperor"
+  },
+  {
+    "slug": "incubus",
+    "name": "Incubus",
+    "arcana": "Devil"
+  },
+  {
+    "slug": "jack-o-lantern",
+    "name": "Jack-o'-Lantern",
+    "arcana": "Magician"
+  },
+  {
+    "slug": "kelpie",
+    "name": "Kelpie",
+    "arcana": "Strength"
+  },
+  {
+    "slug": "mandrake",
+    "name": "Mandrake",
+    "arcana": "Death"
+  },
+  {
+    "slug": "pixie",
+    "name": "Pixie",
+    "arcana": "Lovers"
+  },
+  {
+    "slug": "silky",
+    "name": "Silky",
+    "arcana": "Priestess"
+  }
+]

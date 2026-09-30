@@ -1,0 +1,132 @@
+// Palace Explorer database (SQLite).
+// Open it in your browser with: npm run db:studio
+//
+// Lists (keywords, weaknesses, ...) are stored as comma-separated text so
+// they are easy to edit in Prisma Studio, e.g. "Fire, Ice".
+
+generator client {
+  provider = "prisma-client"
+  output   = "../server/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+/// A Palace, e.g. Kamoshida's Palace.
+model Palace {
+  id          Int     @id @default(autoincrement())
+  slug        String  @unique /// used in the URL: #/palace/<slug>
+  order       Int     @unique /// story order (1 = first Palace)
+  name        String
+  subtitle    String? /// e.g. "Castle of Lust"
+  ruler       String
+  sin         String?
+  location    String? /// real-world location
+  keywords    String? /// Metaverse Navigator keywords, comma-separated
+  treasure    String?
+  deadline    String?
+  description String?
+  crystal     String? /// reward for collecting all 3 Will Seeds
+  portrait    String? /// image path inside public/images
+  banner      String? /// image path inside public/images
+  status      String  @default("coming-soon") /// "available" or "coming-soon"
+
+  areas   Area[]
+  bosses  Boss[]
+  enemies PalaceEnemy[]
+}
+
+/// One map image of a Palace. One image can show several in-game areas.
+model Area {
+  id        Int     @id @default(autoincrement())
+  palaceId  Int
+  slug      String
+  order     Int /// order in which you walk through the Palace
+  name      String /// name shown in the area list
+  areaNames String? /// all in-game areas visible on this map, comma-separated
+  visit     Int     @default(1) /// 1 = first time you are here, 2 = second time
+  mapImage  String? /// image path inside public/images
+  notes     String?
+
+  palace  Palace   @relation(fields: [palaceId], references: [id], onDelete: Cascade)
+  markers Marker[] @relation("AreaMarkers")
+  exitsTo Marker[] @relation("MarkerTarget")
+  bosses  Boss[]
+
+  @@unique([palaceId, slug])
+}
+
+/// Everything on a map: story points, safe rooms, chests, Will Seeds, ...
+model Marker {
+  id          Int      @id @default(autoincrement())
+  areaId      Int
+  type        String /// story, safeRoom, chest, willSeed, treasure, shadow, puzzle, grapple, exit
+  x           Float /// % from the left of the map image (0-100)
+  y           Float /// % from the top of the map image (0-100)
+  name        String
+  description String?
+  step        Int? /// story: the red number on the map
+  subStep     Int? /// story: the white number on the map
+  reward      String?
+  requires    String?
+  locked      Boolean  @default(false) /// chest needs a Lockpick
+  seedColor   String? /// Will Seed: red, green or blue
+  image       String? /// image path inside public/images
+  targetId    Int? /// exit: the area it leads to
+
+  area   Area  @relation("AreaMarkers", fields: [areaId], references: [id], onDelete: Cascade)
+  target Area? @relation("MarkerTarget", fields: [targetId], references: [id], onDelete: SetNull)
+}
+
+/// A Shadow / Persona from the compendium. Can appear in several Palaces.
+model Enemy {
+  id          Int     @id @default(autoincrement())
+  slug        String  @unique
+  name        String
+  arcana      String?
+  level       Int?
+  weak        String? /// comma-separated elements
+  resist      String?
+  nullify     String?
+  drain       String?
+  repel       String?
+  description String?
+  image       String?
+
+  palaces PalaceEnemy[]
+}
+
+/// Which enemies appear in which Palace (and optionally where).
+model PalaceEnemy {
+  id       Int     @id @default(autoincrement())
+  palaceId Int
+  enemyId  Int
+  where    String? /// e.g. "Castle Tower"
+
+  palace Palace @relation(fields: [palaceId], references: [id], onDelete: Cascade)
+  enemy  Enemy  @relation(fields: [enemyId], references: [id], onDelete: Cascade)
+
+  @@unique([palaceId, enemyId])
+}
+
+/// A boss fight inside a Palace.
+model Boss {
+  id          Int     @id @default(autoincrement())
+  palaceId    Int
+  areaId      Int?
+  slug        String
+  name        String
+  level       Int?
+  hp          Int?
+  weak        String?
+  resist      String?
+  description String?
+  image       String?
+  isRuler     Boolean @default(false) /// the Palace ruler's final fight
+
+  palace Palace @relation(fields: [palaceId], references: [id], onDelete: Cascade)
+  area   Area?  @relation(fields: [areaId], references: [id], onDelete: SetNull)
+
+  @@unique([palaceId, slug])
+}

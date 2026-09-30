@@ -4,6 +4,15 @@ import { gsap, useGSAP, reducedMotion } from '../animations/gsap'
 import ImageSlot from './ui/ImageSlot'
 import MarkerIcon from './ui/MarkerIcon'
 
+const NO_INFO = 'No info yet. Add it in Prisma Studio (table Marker) or in the fill-in file.'
+
+// How marker pictures are cropped, per type.
+const IMAGE_FIT = { treasure: 'contain' }
+const IMAGE_POSITION = { willSeed: 'center 35%' }
+
+const list = (text) => (text ? text.split(',').map((s) => s.trim()).filter(Boolean) : [])
+const visitLabel = (visit) => (visit === 2 ? '2nd visit' : visit > 2 ? `visit ${visit}` : null)
+
 function Row({ label, value }) {
   return (
     <div className="info-row">
@@ -13,8 +22,32 @@ function Row({ label, value }) {
   )
 }
 
-function MarkerDetails({ marker, floorName, onClose, onFocus }) {
+function StoryNav({ marker, story, onGoTo }) {
+  const i = story.findIndex((m) => m.id === marker.id)
+  return (
+    <div className="story-nav">
+      <button type="button" className="p5-button" disabled={i <= 0} onClick={() => onGoTo(story[i - 1])}>
+        ◀ Prev
+      </button>
+      <span className="story-nav__count">
+        {i + 1} / {story.length}
+      </span>
+      <button
+        type="button"
+        className="p5-button"
+        disabled={i >= story.length - 1}
+        onClick={() => onGoTo(story[i + 1])}
+      >
+        Next ▶
+      </button>
+    </div>
+  )
+}
+
+function MarkerDetails({ marker, area, story, onClose, onGoTo }) {
   const t = MARKER_TYPES[marker.type]
+  const isStory = marker.type === 'story'
+  const where = [area?.name, visitLabel(area?.visit)].filter(Boolean).join(' · ')
   return (
     <>
       <div className="info-card__head">
@@ -23,13 +56,15 @@ function MarkerDetails({ marker, floorName, onClose, onFocus }) {
           ✕
         </button>
       </div>
-      <ImageSlot
-        className="info-card__image"
-        src={marker.image}
-        alt={marker.name}
-        fit={marker.imageFit}
-        position={marker.imagePosition}
-      />
+      {marker.image && (
+        <ImageSlot
+          className="info-card__image"
+          src={marker.image}
+          alt={marker.name}
+          fit={IMAGE_FIT[marker.type]}
+          position={IMAGE_POSITION[marker.type]}
+        />
+      )}
       <dl className="info-card__rows">
         <div className="info-row">
           <dt>
@@ -37,22 +72,38 @@ function MarkerDetails({ marker, floorName, onClose, onFocus }) {
           </dt>
           <dd style={{ color: markerColor(marker) }}>
             {marker.locked ? `Locked ${t.singular}` : t.singular}
-            {marker.seed && ` · ${marker.seed}`}
+            {marker.seedColor && ` · ${marker.seedColor}`}
+            {isStory && ` · step ${marker.step}${marker.subStep != null ? `.${marker.subStep}` : ''}`}
           </dd>
         </div>
-        <Row label="Location" value={`${marker.location} · ${floorName}`} />
-        <Row label="Requires" value={marker.requires} />
-        <Row label="Reward" value={marker.reward} />
+        <Row label="Location" value={where} />
+        {!isStory && <Row label="Requires" value={marker.requires} />}
+        {!isStory && <Row label="Reward" value={marker.reward} />}
       </dl>
-      <p className="info-card__desc">{marker.description}</p>
-      <button type="button" className="p5-button p5-button--light" onClick={onFocus}>
-        View on Map
-      </button>
+      <p className={`info-card__desc ${marker.description ? '' : 'is-empty'}`}>{marker.description || NO_INFO}</p>
+      {isStory ? (
+        <StoryNav marker={marker} story={story} onGoTo={onGoTo} />
+      ) : (
+        <button type="button" className="p5-button p5-button--light" onClick={() => onGoTo(marker)}>
+          View on Map
+        </button>
+      )}
     </>
   )
 }
 
-function PalaceOverview({ palace }) {
+function PalaceOverview({ palace, areas, story, onGoTo }) {
+  const areaName = Object.fromEntries(areas.map((a) => [a.slug, a.name]))
+  const mainSteps = story.filter((m) => m.subStep == null)
+  // Story route grouped per map, in walking order.
+  const route = []
+  for (const m of mainSteps) {
+    const last = route.at(-1)
+    if (last?.area === m.area) last.steps.push(m)
+    else route.push({ area: m.area, steps: [m] })
+  }
+  const ruler = palace.bosses.find((b) => b.isRuler) ?? palace.bosses[0]
+
   return (
     <>
       <div className="info-card__head">
@@ -62,22 +113,57 @@ function PalaceOverview({ palace }) {
       <dl className="info-card__rows">
         <Row label="Treasure" value={palace.treasure} />
         <Row label="Deadline" value={palace.deadline} />
-        <Row label="Boss" value={palace.boss} />
-        <Row label="Keywords" value={palace.keywords.join(' · ')} />
+        <Row label="Keywords" value={list(palace.keywords).join(' · ')} />
         <div className="info-row">
           <dt>Will Seeds</dt>
           <dd className="seed-row">
             {Object.entries(SEED_COLORS).map(([name, color]) => (
               <MarkerIcon key={name} type="willSeed" tint={color} size={22} />
             ))}
-            → Crystal of {palace.sin}
+            → {palace.crystal ?? 'Crystal'}
           </dd>
         </div>
       </dl>
+
+      {ruler && (
+        <>
+          <h3 className="info-card__sub">Boss</h3>
+          <div className="boss-card">
+            <ImageSlot className="boss-card__image" src={ruler.image} alt={ruler.name} position="center 15%" />
+            <div>
+              <strong>{ruler.name}</strong>
+              {ruler.level && <span> · Lv {ruler.level}</span>}
+              {ruler.weak && <p className="boss-card__weak">Weak: {ruler.weak}</p>}
+              {ruler.description && <p>{ruler.description}</p>}
+            </div>
+          </div>
+        </>
+      )}
+
+      {route.length > 0 && (
+        <>
+          <h3 className="info-card__sub">Story Route</h3>
+          <ol className="story-route">
+            {route.map((r) => (
+              <li key={r.area}>
+                <span className="story-route__area">{areaName[r.area]}</span>
+                <span className="story-route__steps">
+                  {r.steps.map((m) => (
+                    <button key={m.id} type="button" onClick={() => onGoTo(m)} aria-label={m.name}>
+                      {m.step}
+                    </button>
+                  ))}
+                </span>
+              </li>
+            ))}
+          </ol>
+        </>
+      )}
+
       <h3 className="info-card__sub">Shadows</h3>
       <ul className="shadow-list">
-        {palace.shadows.map((s) => (
-          <li key={s.name}>
+        {palace.enemies.map((s) => (
+          <li key={s.slug} title={s.weak ? `Weak: ${s.weak}` : undefined}>
             <span>{s.name}</span>
             <span className="shadow-list__arcana">{s.arcana}</span>
           </li>
@@ -88,7 +174,7 @@ function PalaceOverview({ palace }) {
   )
 }
 
-export default function InfoPanel({ palace, marker, floorName, onClose, onFocus }) {
+export default function InfoPanel({ palace, marker, areas, story, onClose, onGoTo }) {
   const ref = useRef(null)
 
   // New selection: the "calling card" slams in with a small tilt and shake.
@@ -116,9 +202,15 @@ export default function InfoPanel({ palace, marker, floorName, onClose, onFocus 
     <aside className="panel info-panel" ref={ref} data-anim="side-right" aria-live="polite">
       <div className="info-card">
         {marker ? (
-          <MarkerDetails marker={marker} floorName={floorName} onClose={onClose} onFocus={onFocus} />
+          <MarkerDetails
+            marker={marker}
+            area={areas.find((a) => a.slug === marker.area)}
+            story={story}
+            onClose={onClose}
+            onGoTo={onGoTo}
+          />
         ) : (
-          <PalaceOverview palace={palace} />
+          <PalaceOverview palace={palace} areas={areas} story={story} onGoTo={onGoTo} />
         )}
       </div>
     </aside>

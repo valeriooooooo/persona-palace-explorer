@@ -1,14 +1,29 @@
 import { useEffect, useRef, useState } from 'react'
-import { findPalace } from './data/palaces'
+import { usePalace, usePalaces } from './api'
 import { gsap, useGSAP, reducedMotion } from './animations/gsap'
 import TakeYourHeart from './components/intro/TakeYourHeart'
 import PalaceSelect from './components/PalaceSelect'
 import PalaceExplorer from './components/PalaceExplorer'
+import { ApiError, Loading } from './components/ui/StatusScreen'
 
-// Routes: "#/" = palace selection, "#/palace/<id>" = explorer.
+// Routes: "#/" = palace selection, "#/palace/<slug>" = explorer.
 const parseHash = () => {
   const m = window.location.hash.match(/^#\/palace\/([\w-]+)/)
-  return m && findPalace(m[1]) ? { screen: 'palace', id: m[1] } : { screen: 'select' }
+  return m ? { screen: 'palace', id: m[1] } : { screen: 'select' }
+}
+
+function SelectScreen(props) {
+  const { data, error } = usePalaces()
+  if (error) return <ApiError error={error} />
+  if (!data) return <Loading what="Opening the Metaverse Navigator" />
+  return <PalaceSelect palaces={data} {...props} />
+}
+
+function PalaceScreen({ slug, ...props }) {
+  const { data, error } = usePalace(slug)
+  if (error) return <ApiError error={error} />
+  if (!data) return <Loading what="Infiltrating" />
+  return <PalaceExplorer palace={data} {...props} />
 }
 
 const goTo = (hash) => {
@@ -70,14 +85,12 @@ export default function App() {
       </div>
 
       {route.screen === 'palace' ? (
-        <PalaceExplorer key={route.id} animate={revealed} palace={findPalace(route.id)} onBack={() => navigate('#/')} />
+        <PalaceScreen key={route.id} slug={route.id} animate={revealed} onBack={() => navigate('#/')} />
       ) : (
-        <PalaceSelect animate={revealed} onOpen={(id) => navigate(`#/palace/${id}`)} />
+        <SelectScreen animate={revealed} onOpen={(id) => navigate(`#/palace/${id}`)} />
       )}
 
-      <footer className="footer">
-        Fan project · Persona 5 Royal © ATLUS / SEGA · Map layouts are simplified schematics
-      </footer>
+      <footer className="footer">Fan project · Persona 5 Royal © ATLUS / SEGA</footer>
 
       <div className="wipe" aria-hidden="true">
         <span className="wipe__stripe wipe__stripe--red" />

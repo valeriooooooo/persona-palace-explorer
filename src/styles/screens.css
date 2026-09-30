@@ -201,15 +201,16 @@
   rotate: -3deg;
 }
 .select__cards {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 40px;
+  width: min(1480px, calc(100% - 14px));
+  margin-right: 14px; /* room for the card shadows */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 40px 34px;
 }
 
 .palace-card {
   position: relative;
-  width: min(440px, 100%);
+  width: 100%;
   padding: 0;
   border: 0;
   background: none;
@@ -244,7 +245,7 @@
   paint-order: stroke fill;
 }
 .palace-card__image {
-  height: 200px;
+  height: 170px;
   border: 3px solid var(--p5-black);
   clip-path: polygon(0 0, 100% 6%, 100% 100%, 0 94%);
 }
@@ -265,7 +266,7 @@
 }
 .palace-card__name {
   font-family: var(--font-display);
-  font-size: 2.4rem;
+  font-size: 2rem;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -301,6 +302,167 @@
   text-transform: uppercase;
   transform: skewX(-12deg);
   box-shadow: 4px 4px 0 var(--p5-black);
+}
+
+/* Locked (coming soon) Palaces */
+.palace-card.is-locked {
+  cursor: not-allowed;
+}
+.palace-card.is-locked .palace-card__inner {
+  background: #bdbdbd;
+}
+.palace-card.is-locked .palace-card__num {
+  color: #6d6d6d;
+}
+.palace-card.is-locked .palace-card__go {
+  background: #3a3a3a;
+  color: #cfcfcf;
+}
+.palace-card__image--locked {
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(rgba(0, 0, 0, 0.35) 1.3px, transparent 1.6px) 0 0 / 9px 9px,
+    repeating-linear-gradient(135deg, #1a1a1a 0 14px, #262626 14px 28px);
+}
+.palace-card__lock {
+  font-size: 3.2rem;
+  filter: grayscale(1) drop-shadow(4px 4px 0 var(--p5-black));
+}
+
+/* ---------- Loading / API error ---------- */
+.status-screen {
+  min-height: calc(100vh - 120px);
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 14px;
+  text-align: center;
+}
+.status-screen__star {
+  width: 90px;
+  height: 90px;
+  background: var(--p5-black);
+  clip-path: polygon(50% 0, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  animation: status-spin 0.9s cubic-bezier(0.6, -0.3, 0.3, 1.4) infinite;
+}
+@keyframes status-spin {
+  to {
+    rotate: 360deg;
+  }
+}
+.status-screen__text {
+  margin: 0;
+  padding: 4px 22px;
+  background: var(--p5-black);
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  text-transform: uppercase;
+  transform: skewX(-10deg) rotate(-2deg);
+}
+.status-screen__detail {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+.status-screen__steps {
+  margin: 0;
+  padding: 14px 18px 14px 36px;
+  background: rgba(11, 11, 11, 0.85);
+  border-left: 6px solid var(--p5-white);
+  text-align: left;
+  line-height: 1.7;
+}
+.status-screen code {
+  padding: 1px 6px;
+  background: var(--p5-white);
+  color: var(--p5-black);
+}
+
+/* ---------- Info panel extras ---------- */
+.info-card__desc.is-empty {
+  color: var(--p5-grey);
+  font-style: italic;
+}
+.story-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.story-nav .p5-button {
+  padding: 6px 14px;
+}
+.story-nav .p5-button:disabled {
+  opacity: 0.3;
+  cursor: default;
+  animation: none;
+  background: var(--p5-black);
+  color: var(--p5-white);
+}
+.story-nav__count {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+}
+.story-route {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+.story-route li {
+  display: grid;
+  gap: 3px;
+}
+.story-route__area {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--p5-grey);
+}
+.story-route__steps {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.story-route__steps button {
+  width: 28px;
+  height: 26px;
+  padding: 0;
+  border: 2px solid var(--p5-white);
+  background: var(--p5-red);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  clip-path: polygon(6% 0, 100% 6%, 94% 100%, 0 94%);
+  transition: background 0.12s, color 0.12s, transform 0.12s;
+}
+.story-route__steps button:hover,
+.story-route__steps button:focus-visible {
+  background: var(--p5-white);
+  color: var(--p5-black);
+  transform: scale(1.12) rotate(-4deg);
+}
+.boss-card {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 10px;
+  align-items: start;
+  font-size: 0.9rem;
+}
+.boss-card__image {
+  height: 80px;
+  border: 2px solid var(--p5-white);
+}
+.boss-card p {
+  margin: 4px 0 0;
+  color: #d8d8d8;
+  line-height: 1.4;
+}
+.boss-card__weak {
+  color: var(--p5-red) !important;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 /* ---------- Explorer page ---------- */

@@ -4,9 +4,30 @@ const BADGE = '-15 -17 17 -14 16 15 -17 13'
 const BG = '#0b0b0b'
 
 // P5-style badge (tilted card with a coloured offset shadow), drawn around 0,0.
-export default function MarkerGlyph({ type, tint, selected = false, locked = false }) {
+// Story markers show their number instead of an icon, like the red circles on
+// the in-game maps (sub-steps are white, like the white circles).
+export default function MarkerGlyph({ type, tint, label, sub = false, selected = false, locked = false }) {
   const t = MARKER_TYPES[type]
   const color = tint ?? t.color
+  if (label != null) {
+    const fill = sub ? '#f4f4f4' : color
+    return (
+      <g className="marker-glyph">
+        <polygon points={BADGE} transform="translate(4 4)" fill={BG} />
+        <polygon points={BADGE} fill={fill} stroke={selected ? BG : '#f4f4f4'} strokeWidth="2.5" strokeLinejoin="round" />
+        <text
+          y="1"
+          textAnchor="middle"
+          dominantBaseline="middle"
+          fill={sub ? BG : '#f4f4f4'}
+          fontFamily="Anton, Impact, sans-serif"
+          fontSize={String(label).length > 2 ? 13 : 18}
+        >
+          {label}
+        </text>
+      </g>
+    )
+  }
   return (
     <g className="marker-glyph">
       <polygon points={BADGE} transform="translate(4 4)" fill={color} />

@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+/server/generated
+/prisma/*.db
+/prisma/*.db-journal

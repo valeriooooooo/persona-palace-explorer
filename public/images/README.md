@@ -1,20 +1,21 @@
 # Images
 
-The site shows a red halftone placeholder for any image that is missing.
-Filenames must match exactly (including the extension, which must match the
-real file format: a PNG must be named `.png`, an AVIF `.avif`, etc.).
+All images are referenced from the database (Prisma Studio) as a path inside
+this folder, e.g. `kamoshida/ruler.jpg`.
 
-| File | Used for |
+Tip: the file extension must match the real format. Renaming a `.png` to
+`.jpg` does not convert it; save it as JPG (or keep `.png` and use that name
+in the database).
+
+| Path | Used for |
 | --- | --- |
-| `intro/take-your-heart.jpg` | Logo in the opening "Take Your Heart" animation |
-| `kamoshida/ruler.jpg` | Kamoshida's portrait in the header |
-| `kamoshida/castle.jpg` | Palace card on the select screen + "Palace Intel" panel |
-| `kamoshida/red-will-seed.png` | Red Will Seed marker |
-| `kamoshida/green-will-seed.png` | Green Will Seed marker |
-| `kamoshida/blue-will-seed.png` | Blue Will Seed marker |
-| `kamoshida/boss.avif` | Shadow Kamoshida marker (Throne Room) |
-| `kamoshida/treasure.png` | The Treasure (Crown) marker |
+| `intro/take-your-heart.jpg` | Logo in the opening animation |
+| `<palace>/ruler.jpg` | Ruler portrait (Palace.portrait) |
+| `<palace>/castle.jpg` | Banner on the selection screen (Palace.banner) |
+| `<palace>/red-will-seed.jpg` etc. | Will Seed markers (Marker.image) |
+| `<palace>/boss.jpg` | Boss picture (Boss.image) |
+| `<palace>/treasure.jpg` | Treasure marker (Marker.image) |
+| `<palace>/maps/*.jpg` | One map per Area (Area.mapImage) |
 
-To link an image to another marker, add `image: 'kamoshida/<name>'` to that
-marker in `src/data/kamoshida.js`. Optional: `imageFit: 'contain'` for cut-out
-images, `imagePosition: 'center top'` to choose which part stays in view.
+Map file names: a space means one image shows several areas, `-2` means the
+second visit.

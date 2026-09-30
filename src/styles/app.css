@@ -354,7 +354,7 @@
 }
 .map-stage {
   position: absolute;
-  inset: 0 0 0 90px;
+  inset: 0 0 0 214px;
   container-type: size;
   display: grid;
   place-items: center;
@@ -500,46 +500,116 @@
   visibility: hidden;
 }
 
-/* Floor tabs */
-.floor-tabs {
+/* Area list: every map of the Palace in walking order */
+.area-list {
   position: absolute;
-  top: 92px;
+  top: 118px;
+  bottom: 190px;
   left: 0;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  width: 214px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--p5-red) transparent;
 }
-.floor-tab {
+.area-list ol {
+  list-style: none;
+  margin: 0;
+  padding: 0 12px 0 0;
+  display: grid;
+  gap: 5px;
+}
+.area-tab {
   position: relative;
-  min-width: 92px;
-  padding: 6px 16px 6px 14px;
-  border: 3px solid var(--p5-white);
+  width: 100%;
+  display: grid;
+  grid-template-columns: 24px 1fr auto;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px 5px 8px;
+  border: 2px solid var(--p5-white);
   border-left: 0;
-  background: var(--p5-black);
-  font-family: var(--font-display);
-  font-size: 1.35rem;
+  background: rgba(11, 11, 11, 0.92);
   text-align: left;
-  clip-path: polygon(0 0, 100% 10%, 92% 100%, 0 100%);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.15;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, 100% 8%, 95% 100%, 0 100%);
   transition: background 0.12s, color 0.12s, transform 0.18s;
 }
-.floor-tab:hover {
-  background: var(--p5-white);
-  color: var(--p5-black);
-  transform: translateX(6px);
+.area-tab__num {
+  font-family: var(--font-display);
+  font-size: 1rem;
+  color: var(--p5-red);
 }
-.floor-tab.is-active {
+.area-tab__count {
+  min-width: 20px;
+  padding: 0 4px;
   background: var(--p5-red);
   color: var(--p5-white);
-  transform: translateX(10px) scale(1.06);
+  font-size: 0.7rem;
+  text-align: center;
 }
-.floor-tab__count {
+.area-tab:hover {
+  background: var(--p5-white);
+  color: var(--p5-black);
+  transform: translateX(4px);
+}
+.area-tab.is-active {
+  background: var(--p5-red);
+  color: var(--p5-white);
+  transform: translateX(8px);
+}
+.area-tab.is-active .area-tab__num {
+  color: var(--p5-black);
+}
+.area-tab.is-active .area-tab__count {
+  background: var(--p5-black);
+}
+
+/* 1st / 2nd visit switch */
+.visit-toggle {
+  display: flex;
+  gap: 4px;
+  margin: 8px 0 0 26px;
+  pointer-events: auto;
+}
+.visit-toggle button {
+  padding: 3px 12px;
+  border: 2px solid var(--p5-white);
+  background: var(--p5-black);
+  font-family: var(--font-display);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  transform: skewX(-12deg);
+  transition: background 0.12s, color 0.12s;
+}
+.visit-toggle button:hover {
+  background: var(--p5-white);
+  color: var(--p5-black);
+}
+.visit-toggle button.is-active {
+  background: var(--p5-red);
+  color: var(--p5-white);
+}
+
+.map-loading {
   position: absolute;
-  top: 2px;
-  right: 14px;
-  font-family: var(--font-body);
-  font-size: 0.65rem;
-  opacity: 0.8;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  color: var(--p5-grey);
+}
+.map-viewer--empty {
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
 }
 
 .map-controls {
@@ -820,31 +890,34 @@
     height: 520px;
     min-height: 0;
   }
-  .map-stage {
-    inset: 116px 0 52px;
+  .map-viewer {
+    height: 560px;
   }
-  .floor-tabs {
-    top: 76px;
+  .map-stage {
+    inset: 150px 0 52px;
+  }
+  .area-list {
+    top: 104px;
+    bottom: auto;
     left: 8px;
     right: 8px;
-    flex-direction: row;
-    gap: 4px;
+    width: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
   }
-  .floor-tab {
-    flex: 1;
-    min-width: 0;
-    border-left: 3px solid var(--p5-white);
-    font-size: 1rem;
-    padding: 4px 6px;
-    text-align: center;
-    clip-path: polygon(6% 0, 100% 0, 94% 100%, 0 100%);
+  .area-list ol {
+    display: flex;
+    padding: 0 0 6px;
   }
-  .floor-tab:hover,
-  .floor-tab.is-active {
-    transform: translateY(-3px);
+  .area-tab {
+    width: max-content;
+    max-width: 200px;
+    border-left: 2px solid var(--p5-white);
+    clip-path: polygon(4% 0, 100% 0, 96% 100%, 0 100%);
   }
-  .floor-tab__count {
-    display: none;
+  .area-tab:hover,
+  .area-tab.is-active {
+    transform: none;
   }
   .map-controls {
     grid-auto-flow: column;

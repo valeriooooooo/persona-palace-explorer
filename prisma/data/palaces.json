@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "kamoshida",
+    "order": 1,
+    "name": "Kamoshida's Palace",
+    "subtitle": "Castle of Lust",
+    "ruler": "Suguru Kamoshida",
+    "sin": "Lust",
+    "location": "Shujin Academy",
+    "keywords": "Kamoshida, Shujin Academy, Castle",
+    "treasure": "Crown",
+    "deadline": "5/2",
+    "description": "The twisted desires of the volleyball coach, Suguru Kamoshida, have manifested into a distorted castle where he rules as king. Steal his heart and free the students he treats as his slaves.",
+    "crystal": "Crystal of Lust",
+    "portrait": "kamoshida/ruler.jpg",
+    "banner": "kamoshida/castle.jpg",
+    "status": "available"
+  },
+  {
+    "slug": "madarame",
+    "order": 2,
+    "name": "Madarame's Palace",
+    "subtitle": "Museum of Vanity",
+    "ruler": "Ichiryusai Madarame",
+    "sin": "Vanity",
+    "status": "coming-soon"
+  },
+  {
+    "slug": "kaneshiro",
+    "order": 3,
+    "name": "Kaneshiro's Palace",
+    "subtitle": "Bank of Gluttony",
+    "ruler": "Junya Kaneshiro",
+    "sin": "Gluttony",
+    "status": "coming-soon"
+  },
+  {
+    "slug": "futaba",
+    "order": 4,
+    "name": "Futaba's Palace",
+    "subtitle": "Pyramid of Wrath",
+    "ruler": "Futaba Sakura",
+    "sin": "Wrath",
+    "status": "coming-soon"
+  },
+  {
+    "slug": "okumura",
+    "order": 5,
+    "name": "Okumura's Palace",
+    "subtitle": "Spaceport of Greed",
+    "ruler": "Kunikazu Okumura",
+    "sin": "Greed",
+    "status": "coming-soon"
+  },
+  {
+    "slug": "niijima",
+    "order": 6,
+    "name": "Niijima's Palace",
+    "subtitle": "Casino of Envy",
+    "ruler": "Sae Niijima",
+    "sin": "Envy",
+    "status": "coming-soon"
+  },
+  {
+    "slug": "shido",
+    "order": 7,
+    "name": "Shido's Palace",
+    "subtitle": "Cruiser of Pride",
+    "ruler": "Masayoshi Shido",
+    "sin": "Pride",
+    "status": "coming-soon"
+  },
+  {
+    "slug": "maruki",
+    "order": 8,
+    "name": "Maruki's Palace",
+    "ruler": "Takuto Maruki",
+    "status": "coming-soon"
+  }
+]

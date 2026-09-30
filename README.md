@@ -1,43 +1,78 @@
 # Persona 5 Royal – Palace Explorer
 
-A MapGenie-style interactive map for the Palaces from Persona 5 Royal, in the style of the P5R UI.
-Built with React + Vite, with animations in GSAP.
+Een MapGenie-achtige kaart van alle Palaces uit Persona 5 Royal, in de stijl van de game.
+Gemaakt met React + Vite en GSAP. Alle data staat in een **SQLite-database** die je in je browser
+kunt bekijken en aanpassen met **Prisma Studio**.
+
+## Eerste keer opstarten
 
 ```bash
-npm install
-npm run dev
+npm install          # installeert alles (en maakt de database-code aan)
+npm run db:setup     # maakt de database aan en vult hem met de data uit prisma/data/
 ```
 
-## Structure
+## Elke keer als je wilt werken
 
-- `src/data/palaces.js` – list of all Palaces on the selection screen (add a new Palace here)
-- `src/data/kamoshida.js` – all data for Kamoshida's Palace: floors (SVG shapes), doors, stairs and markers
-- `src/data/markerTypes.js` – marker categories (colors + icons) for the filters/legend
-- `src/components/intro/` – the "Take Your Heart" intro (hat + ransom-note letters)
-- `src/components/PalaceSelect.jsx` – selection screen, `PalaceExplorer.jsx` – the map page
-- `src/components/` – `PalaceHeader`, `FilterPanel`, `MapViewer` (zoom/pan/floors), `InfoPanel`, `Legend`
-- `src/animations/gsap.js` – GSAP setup + helpers (respects `prefers-reduced-motion`)
-- `public/images/` – your own images, see `public/images/README.md`
+Open **twee terminals** in de projectmap:
 
-## Pages
+| Terminal 1 | Terminal 2 |
+| --- | --- |
+| `npm run dev` | `npm run db:studio` |
+| De website: <http://localhost:5173> | De database: <http://localhost:5555> |
 
-- `#/` – Palace selection
-- `#/palace/kamoshida` – Kamoshida's Palace
+`npm run dev` start de website én de API (de kleine server die de website de data uit de database geeft).
 
-## Adding or editing a marker
+## De database bekijken en aanpassen (Prisma Studio)
 
-In `src/data/kamoshida.js`, under `markers`:
+1. `npm run db:studio` opent <http://localhost:5555> in je browser.
+2. Links staan de tabellen:
+   - **Palace** – alle 8 Palaces (naam, ruler, treasure, …). `status` = `available` of `coming-soon`.
+   - **Area** – één rij per kaartafbeelding, in de volgorde van het palace (`order`). `visit` = 1e of 2e keer daar.
+   - **Marker** – alles op de kaart: verhaal (`story`), safe rooms, kisten, will seeds, … `x`/`y` zijn procenten van de kaart.
+   - **Enemy** + **PalaceEnemy** – shadows en in welk palace ze voorkomen.
+   - **Boss** – de bosses per palace.
+3. Dubbelklik op een vakje om het aan te passen en bevestig je wijziging. Met **Insert row** maak je een nieuwe rij.
+   Met het filter-icoon zoek je snel iets op (bijv. alle Markers met `type` = `chest`).
+4. Ververs de website en je ziet je wijziging.
 
-```js
-{ id: '2f-chest-x', type: 'chest', floor: '2f', x: 300, y: 200,
-  name: 'Chest name', location: 'Library', reward: 'Medicine', requires: 'Lockpick',
-  description: '...', locked: true, image: 'kamoshida/foo.jpg' }
+### Je wijzigingen bewaren op GitHub
+
+Het databasebestand (`prisma/dev.db`) gaat **niet** naar GitHub. De inhoud wordt bewaard als leesbare
+JSON-bestanden in `prisma/data/`. Na het aanpassen in Prisma Studio:
+
+```bash
+npm run db:export    # schrijft de database naar prisma/data/
+git add prisma/data
+git commit -m "Data bijgewerkt"
+git push
 ```
 
-The coordinates are in the map's 1000×640 grid.
+`npm run db:setup` bouwt de database weer op uit die bestanden (let op: dat overschrijft `dev.db`,
+dus altijd eerst exporteren als je in Studio iets hebt veranderd).
 
-## Note about the data
+## Alle commando's
 
-The floor plans are simplified schematics (not traces of the game), and the marker
-positions, chest contents and puzzle descriptions are a first draft. Check them
-against a guide and adjust them in `kamoshida.js`.
+| Commando | Wat het doet |
+| --- | --- |
+| `npm run dev` | Website + API starten |
+| `npm run db:studio` | Prisma Studio openen (localhost:5555) |
+| `npm run db:setup` | Database opnieuw aanmaken en vullen uit `prisma/data/` |
+| `npm run db:export` | Database opslaan naar `prisma/data/` |
+| `npm run build` | Productie-build van de website |
+| `npm run lint` | Code controleren |
+
+## Waar staat wat
+
+- `prisma/schema.prisma` – de tabellen van de database
+- `prisma/data/` – alle data (bron voor de database): `palaces.json`, `enemies.json` en per palace een map (`kamoshida/areas.json`, `markers.json`, `bosses.json`, `enemies.json`)
+- `server/` – de API (`/api/palaces` en `/api/palaces/<slug>`)
+- `src/` – de website (React)
+- `public/images/` – afbeeldingen en kaarten (zie `public/images/README.md`)
+- `content/kamoshida-invullen.md` – invulbestand voor het verhaal, kisten, enemies, …
+
+## Een nieuw palace toevoegen
+
+1. Zet de kaarten in `public/images/<palace>/maps/`.
+2. Zet in Prisma Studio bij het palace `status` op `available`.
+3. Voeg per kaart een **Area** toe en per punt op de kaart een **Marker**
+   (of stuur de kaarten naar Claude, dan worden de posities uitgelezen).
