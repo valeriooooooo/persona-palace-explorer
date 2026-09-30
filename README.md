@@ -22,6 +22,21 @@ Open **twee terminals** in de projectmap:
 
 `npm run dev` start de website én de API (de kleine server die de website de data uit de database geeft).
 
+## Na elke `git pull`
+
+```bash
+npm install          # nieuwe packages binnenhalen (kan geen kwaad als er niets nieuws is)
+npm run db:setup     # database bijwerken met de nieuwste data
+```
+
+## Problemen?
+
+| Foutmelding | Oplossing |
+| --- | --- |
+| `'prisma' is not recognized as an internal or external command` | Je hebt nog geen `npm install` gedaan. Doe dat eerst, daarna `npm run db:setup`. |
+| Op de website: *Can't reach the database* | Draait `npm run dev`? En heb je `npm run db:setup` gedaan? |
+| `db:setup` vraagt of je zeker weet dat je de database wilt resetten | Dat is goed: de database wordt opnieuw opgebouwd uit `prisma/data/`. Heb je in Studio iets aangepast? Doe dan eerst `npm run db:export`. |
+
 ## De database bekijken en aanpassen (Prisma Studio)
 
 1. `npm run db:studio` opent <http://localhost:5555> in je browser.
