@@ -4,7 +4,6 @@ Alles uit de Samurai Gamers-guide staat in de database: de volgorde van de kaart
 het verhaal bij elk nummer, de kisten, safe rooms, Will Seeds, enemies en bosses.
 Hieronder staan alleen een paar dingen die de guide niet precies zegt.
 
-- **Deadline** staat op 5/2. De guide noemt die niet – klopt dat? :
 - **Kisten waarvan de guide de naam niet precies geeft:**
   - West Building · Central Hall · East Building 2F – "Armor" (op slot, eerste Lockpick): welk item? :
   - Zelfde kaart – "Dirty armor" (na de vent): welk item? :
