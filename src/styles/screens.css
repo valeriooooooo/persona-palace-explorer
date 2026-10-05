@@ -449,6 +449,92 @@
   color: #d8d8d8;
   line-height: 1.4;
 }
+/* Palace Intel tabs */
+.intel-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin: 16px 0 12px;
+}
+.intel-tab {
+  padding: 4px 11px;
+  border: 2px solid var(--p5-white);
+  background: var(--p5-black);
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  transform: skewX(-12deg);
+  transition: background 0.12s, color 0.12s, transform 0.15s;
+}
+.intel-tab:hover,
+.intel-tab:focus-visible {
+  background: var(--p5-white);
+  color: var(--p5-black);
+}
+.intel-tab.is-active {
+  background: var(--p5-red);
+  border-color: var(--p5-red);
+  color: var(--p5-white);
+  transform: skewX(-12deg) translateY(-2px) scale(1.05);
+  box-shadow: 3px 3px 0 var(--p5-white);
+}
+/* Only the open tab scrolls (if it is long), the rest of the intel stays put. */
+.intel-panel {
+  min-height: 140px;
+  max-height: 300px;
+  overflow-y: auto;
+  padding: 4px 4px 0 0;
+  border-top: 2px solid var(--p5-red);
+  scrollbar-width: thin;
+  scrollbar-color: var(--p5-red) transparent;
+}
+.intel-banner {
+  height: 100px;
+}
+.tab-empty {
+  color: var(--p5-grey);
+  font-style: italic;
+}
+.mini-bosses__line {
+  font-size: 0.8rem;
+  color: #cfcfcf;
+  line-height: 1.4;
+}
+.enemy-table__drops {
+  display: block;
+  color: #9a9a9a;
+  font-size: 0.72rem;
+}
+.party-list {
+  list-style: none;
+  margin: 10px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.party-list li {
+  display: grid;
+  padding: 8px 10px;
+  background: var(--p5-white);
+  color: var(--p5-black);
+  clip-path: polygon(0 4%, 100% 0, 96% 100%, 3% 96%);
+}
+.party-list__name {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+.party-list__persona {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--p5-red);
+  text-transform: uppercase;
+}
+.boss-card {
+  margin-top: 10px;
+}
 .boss-card__stats {
   color: var(--p5-white) !important;
   font-weight: 600;

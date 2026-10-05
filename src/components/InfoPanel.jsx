@@ -1,4 +1,4 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 import { MARKER_TYPES, SEED_COLORS, markerColor } from '../data/markerTypes'
 import { gsap, useGSAP, reducedMotion } from '../animations/gsap'
 import ImageSlot from './ui/ImageSlot'
@@ -92,25 +92,162 @@ function MarkerDetails({ marker, area, story, onClose, onGoTo }) {
   )
 }
 
+const TABS = [
+  { id: 'boss', label: 'Boss' },
+  { id: 'mini', label: 'Mini-Bosses' },
+  { id: 'personas', label: 'Personas' },
+  { id: 'story', label: 'Story' },
+  { id: 'party', label: 'Party' },
+]
+
+const statLine = (b) =>
+  [b.level && `Lv ${b.level}`, b.hp && `${b.hp} HP`, b.sp && `${b.sp} SP`].filter(Boolean).join(' · ')
+
+function BossTab({ boss }) {
+  if (!boss) return <p className="tab-empty">No boss in the database yet.</p>
+  return (
+    <>
+      <div className="boss-card">
+        <ImageSlot className="boss-card__image" src={boss.image} alt={boss.name} position="center 15%" />
+        <div>
+          <strong>{boss.name}</strong>
+          {boss.persona && <span> ({boss.persona})</span>}
+          <p className="boss-card__stats">{statLine(boss)}</p>
+          {boss.weak && <p className="boss-card__weak">Weak: {boss.weak}</p>}
+        </div>
+      </div>
+      {boss.skills && <p className="boss-card__line">Skills: {boss.skills}</p>}
+      {boss.rewards && <p className="boss-card__line">Rewards: {boss.rewards}</p>}
+      {boss.description && <p className="boss-card__line">{boss.description}</p>}
+    </>
+  )
+}
+
+function MiniBossTab({ bosses }) {
+  if (!bosses.length) return <p className="tab-empty">No mini-bosses in the database yet.</p>
+  return (
+    <ul className="mini-bosses">
+      {bosses.map((b) => (
+        <li key={b.slug}>
+          <span>
+            <strong>{b.name}</strong>
+            {b.persona && ` (${b.persona})`}
+          </span>
+          <span className="mini-bosses__stats">
+            {[statLine(b), b.weak && b.weak !== 'None' && `Weak: ${b.weak}`].filter(Boolean).join(' · ')}
+          </span>
+          {b.skills && <span className="mini-bosses__line">Skills: {b.skills}</span>}
+          {b.rewards && <span className="mini-bosses__line">Drops: {b.rewards}</span>}
+          {b.description && <span className="mini-bosses__line">{b.description}</span>}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+function PersonasTab({ enemies }) {
+  if (!enemies.length) return <p className="tab-empty">No Personas in the database yet.</p>
+  return (
+    <table className="enemy-table">
+      <thead>
+        <tr>
+          <th>Persona</th>
+          <th>Lv</th>
+          <th>Weak</th>
+        </tr>
+      </thead>
+      <tbody>
+        {[...enemies]
+          .sort((a, b) => (a.level ?? 99) - (b.level ?? 99))
+          .map((s) => (
+            <tr key={s.slug}>
+              <td>
+                {s.name}
+                <span className="enemy-table__arcana">
+                  {[s.arcana, s.personality].filter(Boolean).join(' · ')}
+                </span>
+                {s.drops && <span className="enemy-table__drops">Drops: {s.drops}</span>}
+              </td>
+              <td>{s.level ?? '–'}</td>
+              <td className="enemy-table__weak">{s.weak ?? '–'}</td>
+            </tr>
+          ))}
+      </tbody>
+    </table>
+  )
+}
+
+function StoryTab({ route, areaName, onGoTo }) {
+  if (!route.length) return <p className="tab-empty">No story steps in the database yet.</p>
+  return (
+    <ol className="story-route">
+      {route.map((r) => (
+        <li key={r.area}>
+          <span className="story-route__area">{areaName[r.area]}</span>
+          <span className="story-route__steps">
+            {r.steps.map((m) => (
+              <button key={m.id} type="button" onClick={() => onGoTo(m)} aria-label={m.name} title={m.name}>
+                {m.step}
+              </button>
+            ))}
+          </span>
+        </li>
+      ))}
+    </ol>
+  )
+}
+
+function PartyTab({ party }) {
+  const members = list(party).map((entry) => {
+    const m = entry.match(/^(.*?)\s*\((.*)\)$/)
+    return m ? { name: m[1], persona: m[2] } : { name: entry, persona: null }
+  })
+  if (!members.length) return <p className="tab-empty">No party info in the database yet.</p>
+  return (
+    <ul className="party-list">
+      {members.map((m) => (
+        <li key={m.name}>
+          <span className="party-list__name">{m.name}</span>
+          {m.persona && <span className="party-list__persona">{m.persona}</span>}
+        </li>
+      ))}
+    </ul>
+  )
+}
+
 function PalaceOverview({ palace, areas, story, onGoTo }) {
+  const [tab, setTab] = useState('boss')
+  const tabRef = useRef(null)
   const areaName = Object.fromEntries(areas.map((a) => [a.slug, a.name]))
-  const mainSteps = story.filter((m) => m.subStep == null)
   // Story route grouped per map, in walking order.
   const route = []
-  for (const m of mainSteps) {
+  for (const m of story.filter((s) => s.subStep == null)) {
     const last = route.at(-1)
     if (last?.area === m.area) last.steps.push(m)
     else route.push({ area: m.area, steps: [m] })
   }
-  const ruler = palace.bosses.find((b) => b.isRuler) ?? palace.bosses[0]
+  const ruler = palace.bosses.find((b) => b.isRuler) ?? null
   const miniBosses = palace.bosses.filter((b) => b !== ruler)
+
+  // Switching tabs: the new content slides in like a card being dealt.
+  useGSAP(
+    () => {
+      if (reducedMotion()) return
+      gsap.fromTo(
+        tabRef.current,
+        { x: 40, autoAlpha: 0, skewX: -6 },
+        { x: 0, autoAlpha: 1, skewX: 0, duration: 0.3, ease: 'back.out(1.6)' },
+      )
+    },
+    { dependencies: [tab] },
+  )
 
   return (
     <>
       <div className="info-card__head">
         <h2 className="info-card__title">Palace Intel</h2>
       </div>
-      <ImageSlot className="info-card__image" src={palace.banner} alt={palace.name} />
+      <ImageSlot className="info-card__image intel-banner" src={palace.banner} alt={palace.name} />
       <dl className="info-card__rows">
         <Row label="Treasure" value={palace.treasure} />
         <Row label="Deadline" value={palace.deadline} />
@@ -126,92 +263,28 @@ function PalaceOverview({ palace, areas, story, onGoTo }) {
         </div>
       </dl>
 
-      {ruler && (
-        <>
-          <h3 className="info-card__sub">Boss</h3>
-          <div className="boss-card">
-            <ImageSlot className="boss-card__image" src={ruler.image} alt={ruler.name} position="center 15%" />
-            <div>
-              <strong>{ruler.name}</strong>
-              {ruler.persona && <span> ({ruler.persona})</span>}
-              <p className="boss-card__stats">
-                {[ruler.level && `Lv ${ruler.level}`, ruler.hp && `${ruler.hp} HP`, ruler.sp && `${ruler.sp} SP`]
-                  .filter(Boolean)
-                  .join(' · ')}
-              </p>
-              {ruler.weak && <p className="boss-card__weak">Weak: {ruler.weak}</p>}
-            </div>
-          </div>
-          {ruler.skills && <p className="boss-card__line">Skills: {ruler.skills}</p>}
-          {ruler.rewards && <p className="boss-card__line">Rewards: {ruler.rewards}</p>}
-          {ruler.description && <p className="boss-card__line">{ruler.description}</p>}
-        </>
-      )}
+      <div className="intel-tabs" role="tablist" aria-label="Palace intel">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            role="tab"
+            aria-selected={tab === t.id}
+            className={`intel-tab ${tab === t.id ? 'is-active' : ''}`}
+            onClick={() => setTab(t.id)}
+          >
+            {t.label}
+          </button>
+        ))}
+      </div>
+      <div className="intel-panel" role="tabpanel" ref={tabRef}>
+        {tab === 'boss' && <BossTab boss={ruler} />}
+        {tab === 'mini' && <MiniBossTab bosses={miniBosses} />}
+        {tab === 'personas' && <PersonasTab enemies={palace.enemies} />}
+        {tab === 'story' && <StoryTab route={route} areaName={areaName} onGoTo={onGoTo} />}
+        {tab === 'party' && <PartyTab party={palace.party} />}
+      </div>
 
-      {miniBosses.length > 0 && (
-        <>
-          <h3 className="info-card__sub">Mini-bosses</h3>
-          <ul className="mini-bosses">
-            {miniBosses.map((b) => (
-              <li key={b.slug} title={b.description ?? undefined}>
-                <span>
-                  <strong>{b.name}</strong>
-                  {b.persona && ` (${b.persona})`}
-                </span>
-                <span className="mini-bosses__stats">
-                  {[b.hp && `${b.hp} HP`, b.weak && b.weak !== 'None' && `Weak: ${b.weak}`].filter(Boolean).join(' · ')}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </>
-      )}
-
-      {route.length > 0 && (
-        <>
-          <h3 className="info-card__sub">Story Route</h3>
-          <ol className="story-route">
-            {route.map((r) => (
-              <li key={r.area}>
-                <span className="story-route__area">{areaName[r.area]}</span>
-                <span className="story-route__steps">
-                  {r.steps.map((m) => (
-                    <button key={m.id} type="button" onClick={() => onGoTo(m)} aria-label={m.name}>
-                      {m.step}
-                    </button>
-                  ))}
-                </span>
-              </li>
-            ))}
-          </ol>
-        </>
-      )}
-
-      <h3 className="info-card__sub">Shadows</h3>
-      <table className="enemy-table">
-        <thead>
-          <tr>
-            <th>Shadow</th>
-            <th>Lv</th>
-            <th>Weak</th>
-          </tr>
-        </thead>
-        <tbody>
-          {[...palace.enemies]
-            .sort((a, b) => (a.level ?? 99) - (b.level ?? 99))
-            .map((s) => (
-              <tr key={s.slug} title={s.drops ? `Drops: ${s.drops}` : undefined}>
-                <td>
-                  {s.name}
-                  <span className="enemy-table__arcana">{s.arcana}</span>
-                </td>
-                <td>{s.level ?? '–'}</td>
-                <td className="enemy-table__weak">{s.weak ?? '–'}</td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-      {palace.party && <Row label="Party" value={palace.party} />}
       <p className="info-card__hint">Select a marker on the map to see its details.</p>
       {palace.source && <p className="info-card__source">Info: {palace.source}</p>}
     </>
