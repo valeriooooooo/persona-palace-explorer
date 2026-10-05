@@ -56,23 +56,20 @@
   overflow: hidden;
   cursor: pointer;
 }
+/* Two full-screen halves with a shared diagonal edge (they overlap a little),
+   so nothing of the website shows through until they slide away. */
 .tyh__slice {
   position: absolute;
-  left: -10%;
-  width: 120%;
-  height: 60%;
-  background: var(--p5-red);
+  inset: 0 -10%;
 }
 .tyh__slice--top {
-  top: -5%;
-  clip-path: polygon(0 0, 100% 0, 100% 72%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 42%, 0 62%);
   background:
     radial-gradient(rgba(0, 0, 0, 0.3) 1.5px, transparent 1.8px) 0 0 / 12px 12px,
     var(--p5-red);
 }
 .tyh__slice--bottom {
-  bottom: -5%;
-  clip-path: polygon(0 28%, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 58%, 100% 38%, 100% 100%, 0 100%);
   background: var(--p5-black);
 }
 .tyh__rays {
@@ -127,13 +124,6 @@
   background: var(--p5-white);
   box-shadow: 10px 10px 0 var(--p5-black);
   clip-path: polygon(1% 4%, 30% 0, 62% 5%, 100% 0, 98% 60%, 100% 100%, 55% 95%, 22% 100%, 0 96%, 2% 50%);
-}
-.tyh__flash {
-  position: absolute;
-  inset: 0;
-  background: var(--p5-white);
-  opacity: 0;
-  pointer-events: none;
 }
 .tyh__skip {
   position: absolute;

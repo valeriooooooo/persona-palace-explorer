@@ -54,8 +54,7 @@ export default function TakeYourHeart({ onReveal, onDone }) {
           )
       }
 
-      t.fromTo('.tyh__flash', { autoAlpha: 0.9 }, { autoAlpha: 0, duration: 0.3 }, '+=0.05')
-        .to('.tyh__logo', { scale: 1.05, duration: 0.6, ease: 'sine.inOut' }, '<')
+      t.to('.tyh__logo', { scale: 1.05, duration: 0.6, ease: 'sine.inOut' }, '+=0.05')
         .add(onReveal, '+=0.5')
         .to('.tyh__slice--top', { yPercent: -110, rotate: -4, duration: 0.55, ease: 'power4.in' })
         .to('.tyh__slice--bottom', { yPercent: 110, rotate: -4, duration: 0.55, ease: 'power4.in' }, '<')
@@ -102,7 +101,6 @@ export default function TakeYourHeart({ onReveal, onDone }) {
           )}
         </>
       )}
-      <div className="tyh__flash" />
       <span className="tyh__skip">Click to skip</span>
     </div>
   )
