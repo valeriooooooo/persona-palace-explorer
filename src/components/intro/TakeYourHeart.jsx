@@ -30,36 +30,35 @@ export default function TakeYourHeart({ onReveal, onDone }) {
       }
       const t = gsap
         .timeline({ onComplete: onDone })
-        .from('.tyh__rays', { scale: 0, rotate: -90, duration: 0.6, ease: 'power3.out' })
+        .from('.tyh__rays', { scale: 0, rotate: -90, duration: 0.45, ease: 'power3.out' })
 
       if (logo === 'ok') {
-        t.from('.tyh__card', { y: -500, scale: 2.2, rotate: -30, autoAlpha: 0, duration: 0.6, ease: 'bounce.out' }, 0.15)
-          .to('.tyh__card', { rotate: 2, duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.inOut' })
-          .to('.tyh__card', { scale: 1.08, duration: 0.1, yoyo: true, repeat: 1, ease: 'power2.out' }, '+=0.15')
+        t.from('.tyh__card', { y: -500, scale: 2.2, rotate: -30, autoAlpha: 0, duration: 0.45, ease: 'bounce.out' }, 0.1)
+          .to('.tyh__card', { scale: 1.08, duration: 0.1, yoyo: true, repeat: 1, ease: 'power2.out' }, '+=0.05')
       } else {
-        t.from('.tyh__splat', { scale: 0, rotate: 30, duration: 0.35, ease: 'back.out(2.5)' }, 0.15)
-          .from('.tyh__hat', { y: -420, rotate: -40, duration: 0.55, ease: 'bounce.out' }, 0.25)
-          .to('.tyh__hat', { rotate: 6, duration: 0.12, yoyo: true, repeat: 1, ease: 'power1.inOut' })
+        t.from('.tyh__splat', { scale: 0, rotate: 30, duration: 0.3, ease: 'back.out(2.5)' }, 0.1)
+          .from('.tyh__hat', { y: -420, rotate: -40, duration: 0.45, ease: 'bounce.out' }, 0.15)
           .from(
             '.ransom__letter',
             {
               scale: 3,
               autoAlpha: 0,
               rotate: () => gsap.utils.random(-60, 60),
-              duration: 0.22,
+              duration: 0.2,
               ease: 'back.out(3)',
-              stagger: 0.045,
+              stagger: 0.03,
             },
-            0.75,
+            0.5,
           )
       }
 
-      t.to('.tyh__logo', { scale: 1.05, duration: 0.6, ease: 'sine.inOut' }, '+=0.05')
-        .add(onReveal, '+=0.5')
-        .to('.tyh__slice--top', { yPercent: -110, rotate: -4, duration: 0.55, ease: 'power4.in' })
-        .to('.tyh__slice--bottom', { yPercent: 110, rotate: -4, duration: 0.55, ease: 'power4.in' }, '<')
-        .to('.tyh__logo', { scale: 0.2, autoAlpha: 0, rotate: 20, duration: 0.4, ease: 'power3.in' }, '<')
-        .to('.tyh__rays, .tyh__splat', { autoAlpha: 0, duration: 0.3 }, '<0.1')
+      // Total length: about 1.8 seconds.
+      t.to('.tyh__logo', { scale: 1.05, duration: 0.3, ease: 'sine.inOut' })
+        .add(onReveal, '+=0.15')
+        .to('.tyh__slice--top', { yPercent: -110, rotate: -4, duration: 0.45, ease: 'power4.in' })
+        .to('.tyh__slice--bottom', { yPercent: 110, rotate: -4, duration: 0.45, ease: 'power4.in' }, '<')
+        .to('.tyh__logo', { scale: 0.2, autoAlpha: 0, rotate: 20, duration: 0.35, ease: 'power3.in' }, '<')
+        .to('.tyh__rays, .tyh__splat', { autoAlpha: 0, duration: 0.25 }, '<0.1')
       tl.current = t
     },
     { scope: ref, dependencies: [logo] },
